@@ -80,16 +80,68 @@ public class Gameboard extends Observable<Gameboard> {
 			// of the tile on top is a ROAD aswell. As every ROAD has FIELD nodes as
 			// neighbours on both sides, we can connect those nodes of the two tiles. The
 			// same logic applies to the next three routines.
+		int x1 = x; int y1 = y-1;
+		Position a  = TOP;      Position b  = BOTTOM;
+		Position a1 = TOPLEFT;  Position b1 = BOTTOMLEFT;
+		Position a2 = TOPRIGHT; Position b2 = BOTTOMRIGHT;
+		if(board[x1][y1] != null) {
+			graph.addEdge(board[x][y].getNode(a), board[x1][y].getNode(b));
+			if(board[x][y].getNode(a1) != null && board[x1][y1].getNode(b1) != null)
+				if (board[x][y].getNode(a1).equals(board[x1][y].getNode(b1)))
+					graph.addEdge(board[x][y].getNode(a1), board[x1][y1].getNode(b1));
+			if (board[x][y].getNode(a2) != null && board[x1][y1].getNode(b2) != null)
+				if(board[x][y].getNode(a2).equals(board[x1][y1].getNode(b2)))
+					graph.addEdge(board[x][y].getNode(a2), board[x1][y1].getNode(b2));
+		}
 
 
 		// Check left tile
 		// TODO
+		x1 = x-1; y1 = y;
+		a  = LEFT;       b  = RIGHT;
+		a1 = TOPLEFT;    b1 = TOPRIGHT;
+		a2 = BOTTOMLEFT; b2 = BOTTOMRIGHT;
+		if(board[x1][y1] != null) {
+			graph.addEdge(board[x][y].getNode(a), board[x1][y].getNode(b));
+			if(board[x][y].getNode(a1) != null && board[x1][y1].getNode(b1) != null)
+				if (board[x][y].getNode(a1).equals(board[x1][y].getNode(b1)))
+					graph.addEdge(board[x][y].getNode(a1), board[x1][y1].getNode(b1));
+			if (board[x][y].getNode(a2) != null && board[x1][y1].getNode(b2) != null)
+				if(board[x][y].getNode(a2).equals(board[x1][y1].getNode(b2)))
+					graph.addEdge(board[x][y].getNode(a2), board[x1][y1].getNode(b2));
+		}
 
 		// Check right tile
 		// TODO
+		x1 = x-1; y1 = y;
+		a  = RIGHT;       b  = LEFT;
+		a1 = TOPRIGHT;    b1 = TOPLEFT;
+		a2 = BOTTOMRIGHT; b2 = BOTTOMLEFT;
+		if(board[x1][y1] != null) {
+			graph.addEdge(board[x][y].getNode(a), board[x1][y].getNode(b));
+			if(board[x][y].getNode(a1) != null && board[x1][y1].getNode(b1) != null)
+				if (board[x][y].getNode(a1).equals(board[x1][y].getNode(b1)))
+					graph.addEdge(board[x][y].getNode(a1), board[x1][y1].getNode(b1));
+			if (board[x][y].getNode(a2) != null && board[x1][y1].getNode(b2) != null)
+				if(board[x][y].getNode(a2).equals(board[x1][y1].getNode(b2)))
+					graph.addEdge(board[x][y].getNode(a2), board[x1][y1].getNode(b2));
+		}
 
 		// Check bottom tile
 		// TODO
+		x1 = x-1; y1 = y;
+		a  = BOTTOM;      b  = TOP;
+		a1 = BOTTOMLEFT;  b1 = TOPLEFT;
+		a2 = BOTTOMRIGHT; b2 = TOPRIGHT;
+		if(board[x1][y1] != null) {
+			graph.addEdge(board[x][y].getNode(a), board[x1][y].getNode(b));
+			if(board[x][y].getNode(a1) != null && board[x1][y1].getNode(b1) != null)
+				if (board[x][y].getNode(a1).equals(board[x1][y].getNode(b1)))
+					graph.addEdge(board[x][y].getNode(a1), board[x1][y1].getNode(b1));
+			if (board[x][y].getNode(a2) != null && board[x1][y1].getNode(b2) != null)
+				if(board[x][y].getNode(a2).equals(board[x1][y1].getNode(b2)))
+					graph.addEdge(board[x][y].getNode(a2), board[x1][y1].getNode(b2));
+		}
 	}
 
 	/**
@@ -101,20 +153,25 @@ public class Gameboard extends Observable<Gameboard> {
 	 * @param y The y position on the board
 	 * @return True if it would be allowed, false if not.
 	 */
-	public boolean isTileAllowed(Tile t, int x, int y) {
-
+	public boolean isTileAllowed(Tile t, int x, int y) {		
+		boolean isAllowed = true;
 		// Check top tile
 		// TODO
+		isAllowed &= (board[x][y-1] == null) ? true : (board[x][y-1].getNode(BOTTOM).getType().equals(t.getNode(TOP).getType())) ? true : false;
 
 		// Check left tile
 		// TODO
+		isAllowed &= (board[x-1][y] == null) ? true : (board[x-1][y].getNode(RIGHT).getType().equals(t.getNode(LEFT).getType())) ? true : false;
 
 		// Check right tile
 		// TODO
+		isAllowed &= (board[x+1][y] == null) ? true : (board[x+1][y].getNode(LEFT).getType().equals(t.getNode(RIGHT).getType())) ? true : false;
 
 		// Check bottom tile
 		// TODO
-		return false;
+		isAllowed &= (board[x][y+1] == null) ? true : (board[x][y+1].getNode(TOP).getType().equals(t.getNode(BOTTOM).getType())) ? true : false;
+		
+		return isAllowed;
 	}
 
 	/**
@@ -127,18 +184,36 @@ public class Gameboard extends Observable<Gameboard> {
 	 */
 	public boolean isTileAllowedAnywhere(Tile newTile) {
 		// Iterate over all tiles
+		for(Tile t : tiles) {
 			// check top
 			// TODO
+			if(!t.getNode(TOP).isConnectingTiles()) for(int j = 0; j < 4; j++) {
+				if(isTileAllowed(newTile, t.x, t.y-1)) return true;
+				newTile.rotateRight();
+			}
 
 			// check left
 			// TODO
+			if(!t.getNode(LEFT).isConnectingTiles()) for(int j = 0; j < 4; j++) {
+				if(isTileAllowed(newTile, t.x-1, t.y)) return true;
+				newTile.rotateRight();
+			}
 
 			// check right
 			// TODO
+			if(!t.getNode(RIGHT).isConnectingTiles()) for(int j = 0; j < 4; j++) {
+				if(isTileAllowed(newTile, t.x+1, t.y)) return true;
+				newTile.rotateRight();
+			}
 
 			// check bottom
 			// TODO
+			if(!t.getNode(BOTTOM).isConnectingTiles()) for(int j = 0; j < 4; j++) {
+				if(isTileAllowed(newTile, t.x, t.y+1)) return true;
+				newTile.rotateRight();
+			}
 		
+		}
 		// no valid position was found
 		return false;
 	}

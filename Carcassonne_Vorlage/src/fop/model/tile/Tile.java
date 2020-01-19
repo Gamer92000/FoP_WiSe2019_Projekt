@@ -141,11 +141,25 @@ public class Tile {
 		// Iterate over all positions of the tile
 		// rotate nodes
 		// TODO
+		
+		for (Position n : nodes.keySet()) {
+			if (n == null) continue;
+			if (n == CENTER) rotatedNodes.put(n, nodes.get(n));
+			if (n == TOPLEFT) rotatedNodes.put(TOPRIGHT, nodes.get(n));
+			if (n == TOP) rotatedNodes.put(RIGHT, nodes.get(n));
+			if (n == TOPRIGHT) rotatedNodes.put(BOTTOMRIGHT, nodes.get(n));
+			if (n == LEFT) rotatedNodes.put(TOP, nodes.get(n));
+			if (n == RIGHT) rotatedNodes.put(BOTTOM, nodes.get(n));
+			if (n == BOTTOMLEFT) rotatedNodes.put(TOPLEFT, nodes.get(n));
+			if (n == BOTTOM) rotatedNodes.put(LEFT, nodes.get(n));
+			if (n == BOTTOMRIGHT) rotatedNodes.put(BOTTOMLEFT, nodes.get(n));
+		}
 
 		nodes = rotatedNodes;
 
 		// set rotation
 		// TODO
+		rotation = (rotation + 90) % 360;
 	}
 
 	/**
