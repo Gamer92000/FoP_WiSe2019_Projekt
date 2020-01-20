@@ -1,19 +1,6 @@
 # Created by https://www.gitignore.io/api/java,eclipse,intellij
 # Edit at https://www.gitignore.io/?templates=java,eclipse,intellij
 
-### Eclipse ###
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.settings/
-.loadpath
-.recommenders
-
 # External tool builders
 .externalToolBuilders/
 
