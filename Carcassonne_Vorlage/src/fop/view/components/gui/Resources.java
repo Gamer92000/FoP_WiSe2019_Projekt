@@ -12,8 +12,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -121,7 +127,16 @@ public class Resources implements GameConstants {
 	private void loadScoreEntries() {
 		scoreEntries = new ArrayList<>();
 
-		// TODO
+		try {
+			// the will be loaded and sorted
+			scoreEntries = Arrays.asList(Files.lines(Paths.get("highscore.txt")).toArray(length -> new ScoreEntry[length])) ;
+			scoreEntries = scoreEntries.stream().sorted((a, b) -> a.compareTo(b)).collect(Collectors.toList());
+			
+			
+		} catch (IOException e) {
+			System.err.println("Beim laden der Highscores ist ein Fehler aufgetreten!");
+		}
+		
 	}
 
 	/**

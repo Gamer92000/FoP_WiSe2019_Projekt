@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import fop.model.gameplay.Gameboard;
+
 public class ScoreEntry implements Comparable<ScoreEntry> {
 
 	private String name;
@@ -49,7 +51,9 @@ public class ScoreEntry implements Comparable<ScoreEntry> {
 	 * @param printWriter
 	 */
 	public void write(PrintWriter printWriter) {
-		// TODO
+		
+			printWriter.write(getName() + ";" + getDate() + ";" + getScore());
+		
 	}
 
 	/**
@@ -59,8 +63,16 @@ public class ScoreEntry implements Comparable<ScoreEntry> {
 	 * @return
 	 */
 	public static ScoreEntry read(String line) {
-		// TODO
-		return null;
+		
+		ScoreEntry score;	
+		try {
+			score = new ScoreEntry(line.split(";")[0], Integer.getInteger(line.split(";")[2]), new Date(Integer.getInteger(line.split(";")[1])));
+		} catch (Exception e){
+			
+			return null;
+		}
+		
+		return score;
 	}
 
 	/**
