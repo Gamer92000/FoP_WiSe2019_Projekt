@@ -143,10 +143,6 @@ public class Gameboard extends Observable<Gameboard> {
         if (x < 0 || y < 0 || x >= 144 || y >= 144)
             return false;
 
-        // check if the position is already taken
-        if (board[x][y] != null)
-            return false;
-
         boolean isAllowed;
         // Check top tile
         isAllowed = (board[x][y - 1] == null) || (board[x][y - 1].getNode(BOTTOM).getType().equals(t.getNode(TOP).getType()));
