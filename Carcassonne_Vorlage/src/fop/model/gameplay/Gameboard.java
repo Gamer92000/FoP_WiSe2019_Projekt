@@ -140,8 +140,10 @@ public class Gameboard extends Observable<Gameboard> {
      * @return True if it would be allowed, false if not.
      */
     public boolean isTileAllowed(Tile t, int x, int y) {
-        boolean isAllowed;
+        if (x < 0 || y < 0 || x >= 144 || y >= 144)
+            return false;
 
+        boolean isAllowed;
         // Check top tile
         isAllowed = (board[x][y - 1] == null) || (board[x][y - 1].getNode(BOTTOM).getType().equals(t.getNode(TOP).getType()));
 
