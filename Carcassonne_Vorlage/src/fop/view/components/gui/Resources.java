@@ -1,31 +1,19 @@
 package fop.view.components.gui;
 
+import fop.model.interfaces.GameConstants;
+import fop.model.player.ScoreEntry;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-
-import fop.model.interfaces.GameConstants;
-import fop.model.player.ScoreEntry;
 
 public class Resources implements GameConstants {
 
@@ -123,20 +111,19 @@ public class Resources implements GameConstants {
 	 * @see ScoreEntry#read(String)
 	 * @see #addScoreEntry(ScoreEntry)
 	 */
-
 	private void loadScoreEntries() {
 		scoreEntries = new ArrayList<>();
 
 		try {
-			// the will be loaded and sorted
-			scoreEntries = Arrays.asList(Files.lines(Paths.get("highscore.txt")).toArray(length -> new ScoreEntry[length])) ;
-			scoreEntries = scoreEntries.stream().sorted((a, b) -> a.compareTo(b)).collect(Collectors.toList());
-			
-			
-		} catch (IOException e) {
-			System.err.println("Beim laden der Highscores ist ein Fehler aufgetreten!");
+		    Files.lines(Paths.get("highscore.txt")).forEach(line -> {
+		        ScoreEntry entry = ScoreEntry.read(line);
+		        if (entry == null) return;
+		        scoreEntries.add(entry);
+            });
+		    scoreEntries.sort(Comparator.reverseOrder());
+		} catch (Exception e) {
+			System.err.println("Beim laden der Highscores ist ein Fehler aufgetreten: " + e.getMessage());
 		}
-		
 	}
 
 	/**
