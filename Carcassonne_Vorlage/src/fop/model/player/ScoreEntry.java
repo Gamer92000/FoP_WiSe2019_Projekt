@@ -51,9 +51,7 @@ public class ScoreEntry implements Comparable<ScoreEntry> {
 	 * @param printWriter
 	 */
 	public void write(PrintWriter printWriter) {
-		
-			printWriter.write(getName() + ";" + getDate() + ";" + getScore());
-		
+	    printWriter.write(this.name + ";" + this.date + ";" + this.getScore());
 	}
 
 	/**
@@ -63,16 +61,15 @@ public class ScoreEntry implements Comparable<ScoreEntry> {
 	 * @return
 	 */
 	public static ScoreEntry read(String line) {
-		
-		ScoreEntry score;	
-		try {
-			score = new ScoreEntry(line.split(";")[0], Integer.getInteger(line.split(";")[2]), new Date(Integer.getInteger(line.split(";")[1])));
-		} catch (Exception e){
-			
-			return null;
-		}
-		
-		return score;
+	    String[] split = line.split(";");
+	    if (split.length != 3) return null;
+	    try {
+	        long timestamp = Long.parseLong(split[1]);
+	        int score = Integer.parseInt(split[2]);
+            return new ScoreEntry(split[0], score, new Date(timestamp));
+        } catch (NumberFormatException ignored) {
+	        return null;
+        }
 	}
 
 	/**
