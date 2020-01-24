@@ -5,6 +5,8 @@ import fop.model.player.ScoreEntry;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -97,8 +99,16 @@ public class Resources implements GameConstants {
 	 *                     Schreiben auftreten.
 	 */
 	private void saveScoreEntries() throws IOException {
-		// TODO
-	}
+        File file = new File("highscore.txt");
+        if (!file.exists())
+            file.createNewFile();
+        PrintWriter writer = new PrintWriter(new FileWriter(file));
+        for (ScoreEntry entry : scoreEntries) {
+            entry.write(writer);
+            writer.println();
+        }
+        writer.close();
+    }
 
 	/**
 	 * Lädt den Highscore-Table aus der Datei "highscores.txt". Dabei wird die

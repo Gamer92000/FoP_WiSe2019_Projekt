@@ -2,10 +2,6 @@ package fop.model.player;
 
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import fop.model.gameplay.Gameboard;
 
 public class ScoreEntry implements Comparable<ScoreEntry> {
 
@@ -51,8 +47,8 @@ public class ScoreEntry implements Comparable<ScoreEntry> {
 	 * @param printWriter
 	 */
 	public void write(PrintWriter printWriter) {
-	    printWriter.write(this.name + ";" + this.date + ";" + this.getScore());
-	}
+        printWriter.write(name + ";" + date + ";" + getScore());
+    }
 
 	/**
 	 * reads a score entry and checks if it is allowed
