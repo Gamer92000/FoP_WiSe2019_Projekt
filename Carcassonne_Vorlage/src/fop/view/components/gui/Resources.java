@@ -99,7 +99,7 @@ public class Resources implements GameConstants {
 	 *                     Schreiben auftreten.
 	 */
 	private void saveScoreEntries() throws IOException {
-        File file = new File("highscore.txt");
+        File file = HIGHSCORE_FILE;
         if (!file.exists())
             file.createNewFile();
         PrintWriter writer = new PrintWriter(new FileWriter(file));
@@ -144,7 +144,6 @@ public class Resources implements GameConstants {
 	 * @param scoreEntry Der einzufügende Eintrag
 	 * @see ScoreEntry#compareTo(ScoreEntry)
 	 */
-
 	public void addScoreEntry(ScoreEntry scoreEntry) {
 		// TODO
 	}
