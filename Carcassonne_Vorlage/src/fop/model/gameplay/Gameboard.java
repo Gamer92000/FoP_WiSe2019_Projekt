@@ -1,34 +1,19 @@
 package fop.model.gameplay;
 
-import static fop.model.tile.FeatureType.CASTLE;
-import static fop.model.tile.FeatureType.FIELDS;
-import static fop.model.tile.FeatureType.MONASTERY;
-import static fop.model.tile.FeatureType.ROAD;
-import static fop.model.tile.Position.BOTTOM;
-import static fop.model.tile.Position.BOTTOMLEFT;
-import static fop.model.tile.Position.BOTTOMRIGHT;
-import static fop.model.tile.Position.LEFT;
-import static fop.model.tile.Position.RIGHT;
-import static fop.model.tile.Position.TOP;
-import static fop.model.tile.Position.TOPLEFT;
-import static fop.model.tile.Position.TOPRIGHT;
-
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import fop.base.Edge;
 import fop.base.Node;
 import fop.model.graph.FeatureGraph;
 import fop.model.graph.FeatureNode;
 import fop.model.player.Player;
 import fop.model.tile.FeatureType;
+import static fop.model.tile.FeatureType.*;
 import fop.model.tile.Position;
+import static fop.model.tile.Position.*;
 import fop.model.tile.Tile;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Gameboard extends Observable<Gameboard> {
 
@@ -144,35 +129,33 @@ public class Gameboard extends Observable<Gameboard> {
 		}
 	}
 
-	/**
-	 * Checks if the given tile could be placed at position x, y on the board
-	 * according to the rules.
-	 * 
-	 * @param t The tile
-	 * @param x The x position on the board
-	 * @param y The y position on the board
-	 * @return True if it would be allowed, false if not.
-	 */
-	public boolean isTileAllowed(Tile t, int x, int y) {		
-		boolean isAllowed = true;
-		// Check top tile
-		// TODO
-		isAllowed &= (board[x][y-1] == null) ? true : (board[x][y-1].getNode(BOTTOM).getType().equals(t.getNode(TOP).getType())) ? true : false;
+    /**
+     * Checks if the given tile could be placed at position x, y on the board
+     * according to the rules.
+     *
+     * @param t The tile
+     * @param x The x position on the board
+     * @param y The y position on the board
+     *
+     * @return True if it would be allowed, false if not.
+     */
+    public boolean isTileAllowed(Tile t, int x, int y) {
+        boolean isAllowed;
 
-		// Check left tile
-		// TODO
-		isAllowed &= (board[x-1][y] == null) ? true : (board[x-1][y].getNode(RIGHT).getType().equals(t.getNode(LEFT).getType())) ? true : false;
+        // Check top tile
+        isAllowed = (board[x][y - 1] == null) || (board[x][y - 1].getNode(BOTTOM).getType().equals(t.getNode(TOP).getType()));
 
-		// Check right tile
-		// TODO
-		isAllowed &= (board[x+1][y] == null) ? true : (board[x+1][y].getNode(LEFT).getType().equals(t.getNode(RIGHT).getType())) ? true : false;
+        // Check left tile
+        isAllowed &= (board[x - 1][y] == null) || (board[x - 1][y].getNode(RIGHT).getType().equals(t.getNode(LEFT).getType()));
 
-		// Check bottom tile
-		// TODO
-		isAllowed &= (board[x][y+1] == null) ? true : (board[x][y+1].getNode(TOP).getType().equals(t.getNode(BOTTOM).getType())) ? true : false;
-		
-		return isAllowed;
-	}
+        // Check right tile
+        isAllowed &= (board[x + 1][y] == null) || (board[x + 1][y].getNode(LEFT).getType().equals(t.getNode(RIGHT).getType()));
+
+        // Check bottom tile
+        isAllowed &= (board[x][y + 1] == null) || (board[x][y + 1].getNode(TOP).getType().equals(t.getNode(BOTTOM).getType()));
+
+        return isAllowed;
+    }
 
 	/**
 	 * Checks if the given tile would be allowed anywhere on the board adjacent to
