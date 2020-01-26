@@ -117,15 +117,20 @@ public class Resources implements GameConstants {
 	 * Sollte eine Exception auftreten, kann diese ausgegeben werden, sie sollte
 	 * aber nicht weitergegeben werden, da sonst das Laden der restlichen Resourcen
 	 * abgebrochen wird ({@link #load()}).
+	 * @throws IOException 
 	 * 
 	 * @see ScoreEntry#read(String)
 	 * @see #addScoreEntry(ScoreEntry)
 	 */
-	private void loadScoreEntries() {
+	private void loadScoreEntries() throws IOException {
 		scoreEntries = new ArrayList<>();
+		
+		File file = HIGHSCORE_FILE;
+		if (!file.exists())
+            file.createNewFile();
 
 		try {
-		    Files.lines(Paths.get("highscore.txt")).forEach(line -> {
+		    Files.lines(Paths.get(file.getPath())).forEach(line -> {
 		        ScoreEntry entry = ScoreEntry.read(line);
 		        if (entry == null) return;
 		        scoreEntries.add(entry);
