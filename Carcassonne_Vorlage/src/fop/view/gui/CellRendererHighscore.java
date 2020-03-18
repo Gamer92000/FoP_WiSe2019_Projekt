@@ -26,7 +26,7 @@ public class CellRendererHighscore extends DefaultTableCellRenderer{
 			} else {
 				
 				if(Math.floorMod(row, 2) == 0)
-					setBackground(Color.gray);
+					setBackground(Color.lightGray);
 				if(Math.floorMod(row, 2) == 1)
 					setBackground(Color.white);
 			}
