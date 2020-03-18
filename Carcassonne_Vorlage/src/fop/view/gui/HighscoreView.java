@@ -1,6 +1,11 @@
 package fop.view.gui;
 
 import java.util.List;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.Transparency;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
@@ -12,7 +17,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import org.junit.platform.engine.discovery.ModuleSelector;
 
 import fop.Carcassonne;
 import fop.controller.GameController;
@@ -63,24 +72,34 @@ public class HighscoreView extends View {
 		DefaultTableModel model = new DefaultTableModel(); 
 		
 		//adding the Colums
-		model.addColumn("Date");
-		model.addColumn("Name");
-		model.addColumn("Points");
+		model.addColumn(" Date");
+		model.addColumn(" Name");
+		model.addColumn(" Points");
+		
+		
 		
 		//adding the Highscores
 		
 		List<ScoreEntry> scores = resources.getScoreEntries();
 		
 		for(int i = 0; i < scores.size(); i++) {
-            model.addRow(new Object[] {scores.get(i).getDate().toInstant().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")), scores.get(i).getName(), scores.get(i).getScore()});}
+            model.addRow(new Object[] {" " + scores.get(i).getDate().toInstant().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")), " " + scores.get(i).getName(), " " + scores.get(i).getScore()});}
 			
 		
 		scoreTable = new JTable(model);
 		scoreTable.setLocation(0,0);
+		scoreTable.setRowHeight(25);
+		scoreTable.setShowVerticalLines(false);
 		scoreTable.setEnabled(false);
 		scoreTable.setVisible(true);
+		scoreTable.setFont(resources.getCelticFont());
+		scoreTable.getTableHeader().setFont(resources.getCelticFont());
+		scoreTable.getTableHeader().setBorder(BorderFactory.createLineBorder(Color.black));
+		
+		scoreTable.setDefaultRenderer(Object.class, new CellRendererHighscore());
 		
 		scrollPane = new JScrollPane(scoreTable);
+		
 		
 		add(scrollPane);
 	}
