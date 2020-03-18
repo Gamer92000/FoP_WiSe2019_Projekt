@@ -22,6 +22,7 @@ public class Resources implements GameConstants {
 	private static Resources instance;
 	private Font celticFont;
 	private List<ScoreEntry> scoreEntries;
+	
 
 	private boolean resourcesLoaded;
 
@@ -100,11 +101,11 @@ public class Resources implements GameConstants {
 	 */
 	private void saveScoreEntries() throws IOException {
         File file = HIGHSCORE_FILE;
-        if (!file.exists())
-            file.createNewFile();
+       
+        
         PrintWriter writer = new PrintWriter(new FileWriter(file));
-        for (ScoreEntry entry : scoreEntries) {
-            entry.write(writer);
+        for (int i = 0; i < scoreEntries.size(); i++) {
+            scoreEntries.get(i).write(writer);
             writer.println();
         }
         writer.close();
@@ -135,6 +136,7 @@ public class Resources implements GameConstants {
 		        if (entry == null) return;
 		        scoreEntries.add(entry);
             });
+		    
 		    scoreEntries.sort(Comparator.reverseOrder());
 		} catch (Exception e) {
 			System.err.println("Beim laden der Highscores ist ein Fehler aufgetreten: " + e.getMessage());
@@ -151,6 +153,9 @@ public class Resources implements GameConstants {
 	 */
 	public void addScoreEntry(ScoreEntry scoreEntry) {
 		// TODO
+		
+		scoreEntries.add(scoreEntry);
+		scoreEntries.sort(Comparator.comparing(ScoreEntry::getScore));
 	}
 
 	public void clearEntries() throws IOException {

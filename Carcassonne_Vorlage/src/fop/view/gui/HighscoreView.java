@@ -1,13 +1,17 @@
 package fop.view.gui;
 
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 
+import javax.naming.LimitExceededException;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
+import fop.Carcassonne;
 import fop.controller.GameController;
 import fop.model.interfaces.GameConstants;
 import fop.model.interfaces.GameMethods;
@@ -50,11 +54,32 @@ public class HighscoreView extends View {
 		btnClear = createButton("Delete");
 		lblTitle = createLabel("Highscores", 45, true);
 		
+		
 		Resources resources = Resources.getInstance();
 		// TODO
+		DefaultTableModel model = new DefaultTableModel(); 
 		
-
-		scrollPane = new JScrollPane();
+		//adding the Colums
+		model.addColumn("Date");
+		model.addColumn("Name");
+		model.addColumn("Points");
+		
+		//adding the Highscores
+		
+		List<ScoreEntry> scores = Resources.getInstance().getScoreEntries();
+		
+		for(int i = 0; i < scores.size(); i++) {
+			
+			model.addRow(new Object[] {scores.get(i).getDate(), scores.get(i).getName(), scores.get(i).getScore()});
+		}
+		
+		
+		scoreTable = new JTable(model); 
+		scoreTable.setLocation(0,0);
+		scoreTable.setVisible(true);
+		
+		scrollPane = new JScrollPane(scoreTable);
+		
 		add(scrollPane);
 	}
 
@@ -68,4 +93,8 @@ public class HighscoreView extends View {
 				GameMethods.deleteHighScoreEntries(message);
 		}
 	}
+	
+	
+	
+	
 }

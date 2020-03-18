@@ -47,7 +47,7 @@ public class ScoreEntry implements Comparable<ScoreEntry> {
 	 * @param printWriter
 	 */
 	public void write(PrintWriter printWriter) {
-        printWriter.write(name + ";" + date + ";" + getScore());
+        printWriter.write(name + ";" + date.getTime() + ";" + getScore());
     }
 
 	/**
@@ -57,7 +57,9 @@ public class ScoreEntry implements Comparable<ScoreEntry> {
 	 * @return
 	 */
 	public static ScoreEntry read(String line) {
-	    String[] split = line.split(";");
+		
+		
+		String[] split = line.split(";");
 	    if (split.length != 3) return null;
 	    try {
 	        long timestamp = Long.parseLong(split[1]);
