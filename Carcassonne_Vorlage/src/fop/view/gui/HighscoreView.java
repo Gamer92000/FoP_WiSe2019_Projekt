@@ -3,8 +3,11 @@ package fop.view.gui;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import javax.naming.LimitExceededException;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -66,16 +69,15 @@ public class HighscoreView extends View {
 		
 		//adding the Highscores
 		
-		List<ScoreEntry> scores = Resources.getInstance().getScoreEntries();
+		List<ScoreEntry> scores = resources.getScoreEntries();
 		
 		for(int i = 0; i < scores.size(); i++) {
+            model.addRow(new Object[] {scores.get(i).getDate().toInstant().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")), scores.get(i).getName(), scores.get(i).getScore()});}
 			
-			model.addRow(new Object[] {scores.get(i).getDate(), scores.get(i).getName(), scores.get(i).getScore()});
-		}
 		
-		
-		scoreTable = new JTable(model); 
+		scoreTable = new JTable(model);
 		scoreTable.setLocation(0,0);
+		scoreTable.setEnabled(false);
 		scoreTable.setVisible(true);
 		
 		scrollPane = new JScrollPane(scoreTable);
