@@ -17,6 +17,8 @@ import java.util.Comparator;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+import org.omg.CORBA.OMGVMCID;
+
 public class Resources implements GameConstants {
 
 	private static Resources instance;
@@ -155,7 +157,9 @@ public class Resources implements GameConstants {
 		// TODO
 		
 		scoreEntries.add(scoreEntry);
-		scoreEntries.sort(Comparator.comparing(ScoreEntry::getScore));
+		scoreEntries.sort(Comparator.comparing(ScoreEntry:: getScore));
+		scoreEntries.sort(Comparator.reverseOrder());
+		
 	}
 
 	public void clearEntries() throws IOException {
