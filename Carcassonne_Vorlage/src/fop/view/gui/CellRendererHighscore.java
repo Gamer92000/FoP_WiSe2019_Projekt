@@ -31,6 +31,8 @@ public class CellRendererHighscore extends DefaultTableCellRenderer{
 					setBackground(Color.white);
 			}
 			
+			setText((String)value);
+			
 			return this;
 		
 		} 
