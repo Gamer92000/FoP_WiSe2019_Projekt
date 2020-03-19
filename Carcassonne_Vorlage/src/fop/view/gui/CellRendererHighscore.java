@@ -14,10 +14,10 @@ public class CellRendererHighscore extends DefaultTableCellRenderer{
 	}
 		  
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		if (row == 0) setBackground(new Color(255,215,0));
-		else if (row == 1) setBackground(new Color(192,192,192));
-		else if (row == 2) setBackground(new Color(210,105,30));
-		else setBackground(Math.floorMod(row, 2) == 0 ? new Color(245, 245, 245) : Color.white);
+		if (row == 0) setBackground(new Color(248, 195, 35));
+		else if (row == 1) setBackground(new Color(187, 181, 183));
+		else if (row == 2) setBackground(new Color(254, 138, 44));
+		else setBackground(Math.floorMod(row, 2) == 0 ? new Color(235, 235, 235) : Color.white);
 		setText((String)value);
 		setFont(table.getFont());
 		return this;

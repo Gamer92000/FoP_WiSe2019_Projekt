@@ -2,30 +2,17 @@ package fop.view.gui;
 
 import java.util.List;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Insets;
-import java.awt.Transparency;
 import java.awt.event.ActionEvent;
-import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-import javax.naming.LimitExceededException;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.Border;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
-import org.junit.platform.engine.discovery.ModuleSelector;
-
-import fop.Carcassonne;
-import fop.controller.GameController;
-import fop.model.interfaces.GameConstants;
 import fop.model.interfaces.GameMethods;
 import fop.model.interfaces.MessagesConstants;
 import fop.model.player.ScoreEntry;
@@ -36,6 +23,7 @@ import fop.view.components.gui.Resources;
  * HighScore Area
  *
  */
+@SuppressWarnings("serial")
 public class HighscoreView extends View {
 
 	private JButton btnBack;
@@ -72,9 +60,9 @@ public class HighscoreView extends View {
 		DefaultTableModel model = new DefaultTableModel(); 
 		
 		//adding the Colums
-		model.addColumn(" Date");
-		model.addColumn(" Name");
-		model.addColumn(" Points");
+		model.addColumn("Date");
+		model.addColumn("Name");
+		model.addColumn("Points");
 		
 		
 		
@@ -84,22 +72,29 @@ public class HighscoreView extends View {
 		
 		for(int i = 0; i < scores.size(); i++) {
             model.addRow(new Object[] {" " + scores.get(i).getDate().toInstant().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")), " " + scores.get(i).getName(), " " + scores.get(i).getScore()});}
-			
 		
 		scoreTable = new JTable(model);
 		scoreTable.setLocation(0,0);
-		scoreTable.setRowHeight(25);
 		scoreTable.setShowVerticalLines(false);
 		scoreTable.setEnabled(false);
 		scoreTable.setVisible(true);
-		scoreTable.setFont(resources.getCelticFont());
-		scoreTable.getTableHeader().setFont(resources.getCelticFont());
-		scoreTable.getTableHeader().setBorder(BorderFactory.createLineBorder(Color.black));
+		scoreTable.setAlignmentX(CENTER_ALIGNMENT);
+		
+		boolean ugly = false;
+		
+		scoreTable.setRowHeight(ugly ? 25 : 22);
+		if (ugly) scoreTable.setFont(resources.getCelticFont());
+		if (ugly) scoreTable.getTableHeader().setFont(resources.getCelticFont());
+		
+		scoreTable.getTableHeader().setBorder(new MatteBorder(0, 0, 1, 0, Color.BLACK));
+		scoreTable.getTableHeader().setReorderingAllowed(false);
+		scoreTable.getTableHeader().setResizingAllowed(false);
+		scoreTable.getTableHeader().setBackground(Color.WHITE);
+		scoreTable.getTableHeader().removeAll();
 		
 		scoreTable.setDefaultRenderer(Object.class, new CellRendererHighscore());
 		
 		scrollPane = new JScrollPane(scoreTable);
-		
 		
 		add(scrollPane);
 	}
