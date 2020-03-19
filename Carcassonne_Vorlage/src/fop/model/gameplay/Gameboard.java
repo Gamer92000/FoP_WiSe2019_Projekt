@@ -228,9 +228,11 @@ public class Gameboard extends Observable<Gameboard> {
 							if (x+i < 0 || y+j < 0 || x+i >= 144 || y+j >= 144) continue;
 							adj += board[x+i][y+j] != null ? 1 : 0;
 						}
-					System.out.println(adj);
-					if (state == state.GAME_OVER || adj == 9)
-						tile.getMeeple().addScore(adj); //TODO: reset score
+					if (state == state.GAME_OVER || adj == 9) {
+						tile.getMeeple().addScore(adj);
+						tile.getMeeple().returnMeeple();
+						if (state != state.GAME_OVER) tile.getNode(tile.getMeeplePosition()).setPlayer(null);
+						
 				}
 			}
 	}
