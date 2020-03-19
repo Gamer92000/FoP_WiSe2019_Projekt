@@ -216,13 +216,21 @@ public class Gameboard extends Observable<Gameboard> {
 		//Meeples are just returned in case of state == State.GAME_OVER
 				
 		//After adding the points to the overall points of the player, set the score to 1 again
-		for (Tile a[] : board)
-			for (Tile t : a) {
-				if (t != null && t.getNode(CENTER) != null && t.getNode(CENTER).getType() == MONASTERY && t.getMeeple() != null && t.getMeeplePosition() == CENTER) {
-					int tiles = 0;
-					for (int i = -1; i <= 1; i++) for (int j = -1; j <= 1; j++) try {if (board[t.x + i][t.y + j] != null) tiles++;} catch(Exception e){}
-					if (state != State.GAME_OVER || tiles == 9)
-						t.getMeeple().addScore(tiles);
+		int adj;
+		
+		for (int x = 0; x < board.length; x++)
+			for (int y = 0; y < board[0].length; y++) {
+				adj = 0;
+				Tile tile = board[x][y];
+				if (tile != null && tile.getNode(CENTER) != null && tile.getNode(CENTER).getType() == MONASTERY && tile.getMeeple() != null && tile.getMeeplePosition() == CENTER) {
+					for (int i = -1; i <= 1; i++)
+						for (int j = -1; j <= 1; j++) {
+							if (x+i < 0 || y+j < 0 || x+i >= 144 || y+j >= 144) continue;
+							adj += board[x+i][y+j] != null ? 1 : 0;
+						}
+					System.out.println(adj);
+					if (state == state.GAME_OVER || adj == 9)
+						tile.getMeeple().addScore(adj); //TODO: reset score
 				}
 			}
 	}
