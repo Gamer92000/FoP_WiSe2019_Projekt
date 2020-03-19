@@ -75,12 +75,12 @@ public class HighscoreView extends View {
 		
 		scoreTable = new JTable(model);
 		scoreTable.setLocation(0,0);
-		scoreTable.setShowVerticalLines(false);
+		scoreTable.setShowHorizontalLines(false);
 		scoreTable.setEnabled(false);
 		scoreTable.setVisible(true);
 		scoreTable.setAlignmentX(CENTER_ALIGNMENT);
 		
-		boolean ugly = false;
+		boolean ugly = true;
 		
 		scoreTable.setRowHeight(ugly ? 25 : 22);
 		if (ugly) scoreTable.setFont(resources.getCelticFont());

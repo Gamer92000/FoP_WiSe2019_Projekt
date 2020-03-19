@@ -14,6 +14,8 @@ public class CellRendererHighscore extends DefaultTableCellRenderer{
 	}
 		  
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	
+		
 		if (row == 0) setBackground(new Color(248, 195, 35));
 		else if (row == 1) setBackground(new Color(187, 181, 183));
 		else if (row == 2) setBackground(new Color(254, 138, 44));
