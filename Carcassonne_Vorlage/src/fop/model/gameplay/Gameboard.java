@@ -230,8 +230,10 @@ public class Gameboard extends Observable<Gameboard> {
 						}
 					if (state == state.GAME_OVER || adj == 9) {
 						tile.getMeeple().addScore(adj);
-						tile.getMeeple().returnMeeple();
-						if (state != state.GAME_OVER) tile.getNode(tile.getMeeplePosition()).setPlayer(null);
+						if (state != state.GAME_OVER) {
+							tile.getMeeple().returnMeeple();
+							tile.getNode(tile.getMeeplePosition()).setPlayer(null);
+						}
 					}
 				}
 			}
