@@ -232,7 +232,7 @@ public class Gameboard extends Observable<Gameboard> {
 						tile.getMeeple().addScore(adj);
 						tile.getMeeple().returnMeeple();
 						if (state != state.GAME_OVER) tile.getNode(tile.getMeeplePosition()).setPlayer(null);
-						
+					}
 				}
 			}
 	}
