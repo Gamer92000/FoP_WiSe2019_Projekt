@@ -122,7 +122,7 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 		if(currentPlayer().getName().equals("AI")) {
 			Tile tile = gc.getTileStack().pickUpTile();
 			currentPlayer().draw(this, tile);
-			gc.getTileStack().push(gc.getTileStack());
+			if (gc.getTileStack().remainingTiles() != 0) gc.getTileStack().push(gc.getTileStack());
 			gc.setState(State.PLACING_MEEPLE);
 			return;
 		}

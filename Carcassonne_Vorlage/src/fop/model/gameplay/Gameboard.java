@@ -144,17 +144,20 @@ public class Gameboard extends Observable<Gameboard> {
             return false;
 
         boolean isAllowed;
+        
+        isAllowed = (y-1 >= 0) && (board[x][y - 1] != null) || (x-1 >= 0) && (board[x - 1][y] != null) || (x+1 < 144) && (board[x + 1][y] != null) || (y+1 < 144) && (board[x][y + 1] != null);
+        
         // Check top tile
-        isAllowed = (board[x][y - 1] == null) || (board[x][y - 1].getNode(BOTTOM).getType().equals(t.getNode(TOP).getType()));
+        isAllowed &= (y-1 < 0) || (board[x][y - 1] == null) || (board[x][y - 1].getNode(BOTTOM).getType().equals(t.getNode(TOP).getType()));
 
         // Check left tile
-        isAllowed &= (board[x - 1][y] == null) || (board[x - 1][y].getNode(RIGHT).getType().equals(t.getNode(LEFT).getType()));
+        isAllowed &= (x-1 < 0) || (board[x - 1][y] == null) || (board[x - 1][y].getNode(RIGHT).getType().equals(t.getNode(LEFT).getType()));
 
         // Check right tile
-        isAllowed &= (board[x + 1][y] == null) || (board[x + 1][y].getNode(LEFT).getType().equals(t.getNode(RIGHT).getType()));
+        isAllowed &= (x+1 >= 144) || (board[x + 1][y] == null) || (board[x + 1][y].getNode(LEFT).getType().equals(t.getNode(RIGHT).getType()));
 
         // Check bottom tile
-        isAllowed &= (board[x][y + 1] == null) || (board[x][y + 1].getNode(TOP).getType().equals(t.getNode(BOTTOM).getType()));
+        isAllowed &= (y+1 >= 144) || (board[x][y + 1] == null) || (board[x][y + 1].getNode(TOP).getType().equals(t.getNode(BOTTOM).getType()));
 
         return isAllowed;
     }
