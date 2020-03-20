@@ -104,5 +104,4 @@ public class HighscoreView extends View {
 	public MatteBorder getBorder() {
 		return border;
 	}
-	
 }
