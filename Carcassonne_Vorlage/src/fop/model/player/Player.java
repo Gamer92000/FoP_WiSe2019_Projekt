@@ -100,13 +100,17 @@ public class Player implements PlayerMethods{
 	}
 
 	public void placeMeeple(GamePlay gp) {
-		if (this.meeples <= 0)
+		if (this.meeples <= 0) {
+			gp.nextRound();
 			return;
+		}
 
 		GameController gc = gp.getGameController();
 		boolean[] meeples = gc.getGameBoard().getMeepleSpots();
-		if (meeples == null)
+		if (meeples == null) {
+			gp.nextRound();
 			return;
+		}
 
 		List<RateableMeeplePosition> meeplePositions = new ArrayList<>();
 		for (int i = 0; i < 9; i++) {
@@ -114,7 +118,11 @@ public class Player implements PlayerMethods{
 			meeplePositions.add(new RateableMeeplePosition(Position.values()[i]));
 		}
 
-		if (meeplePositions.isEmpty()) return;
+		if (meeplePositions.isEmpty()) {
+			gp.nextRound();
+			return;
+		}
+
 		meeplePositions.forEach(p -> this.rateMeeple(gp, p));
 		meeplePositions.sort(Comparator.comparingInt(Rateable::getRating));
 		gp.placeMeeple(meeplePositions.get(0).getPosition());
