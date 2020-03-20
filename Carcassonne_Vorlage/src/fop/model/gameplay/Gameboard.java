@@ -307,8 +307,9 @@ public class Gameboard extends Observable<Gameboard> {
 						nodesWithMeeple.add(fNode);
 						if(!meeples.containsKey(tile.getMeeple()))
 							meeples.put(tile.getMeeple(), 1);
-						else
-							meeples.put(tile.getMeeple(), meeples.get(tile.getMeeple()) );
+						else {
+							meeples.put(tile.getMeeple(), meeples.get(tile.getMeeple()) + 1);
+						}
 					}
 					// look for completed
 					
@@ -343,6 +344,7 @@ public class Gameboard extends Observable<Gameboard> {
 				maxMeeple = 0;
 				
 				meeples.forEach((x,y) -> {
+					System.out.println(y);
 					if(y == maxMeeple)
 						owners.add(x);
 					if(y > maxMeeple){
