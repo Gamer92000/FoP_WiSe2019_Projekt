@@ -8,6 +8,10 @@ import fop.model.interfaces.PlayerMethods;
 import fop.model.tile.Position;
 import fop.model.tile.Tile;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 public class Player implements PlayerMethods{
 
 	private MeepleColor color;
@@ -60,19 +64,24 @@ public class Player implements PlayerMethods{
 	
 	public void draw(GamePlay gp, Tile tile) {
 		if (tile == null) gp.nextRound();
-		
+
+		List<PossiblePosition> possibleTiles = new ArrayList<>();
 		GameController gc = gp.getGameController();
 		// TODO
 		Tile[][] board = gc.getGameBoard().getBoard();
-		outer:
-		for (int i = 0; i < 144; i++)
+		for (int i = 0; i < 144; i++) {
 			for (int j = 0; j < 144; j++) {
-				if (board[i][j] == null && gc.getGameBoard().isTileAllowed(tile, i, j)) {		
-					gp.newTile(tile, i, j);
-					//gc.getTileStack().push(gc.getTileStack());
-					return;
-				}
+				if (board[i][j] != null) continue;
+				if (!gc.getGameBoard().isTileAllowed(tile, i, j)) continue;
+				possibleTiles.add(new PossiblePosition(i, j));
 			}
+		}
+
+		if (possibleTiles.isEmpty()) return;
+		possibleTiles.sort(Comparator.comparing(PossiblePosition::getRating));
+		PossiblePosition position = possibleTiles.get(0);
+		gp.newTile(tile, position.getX(), position.getY());
+		//gc.getTileStack().push(gc.getTileStack());
 	}
 	
 	public void placeMeeple(GamePlay gp) {
@@ -81,16 +90,46 @@ public class Player implements PlayerMethods{
 		//to place a meeple, call gp.placeMeeple(...).
 		GameController gc = gp.getGameController();
 
-		boolean meaples[] = gc.getGameBoard().getMeepleSpots();
-		if(meaples != null)
-			for (int i = 0; i < 9; i++) 
-				if (meaples[i] == true) {
-					gp.placeMeeple(Position.values()[i]);
-					return;
-				}
+		boolean[] meaples = gc.getGameBoard().getMeepleSpots();
+		if (meaples == null) {
+			gp.nextRound();
+			return;
+		}
+
+		for (int i = 0; i < 9; i++) {
+			if (!meaples[i]) continue;
+			gp.placeMeeple(Position.values()[i]);
+			return;
+		}
 
 		gp.nextRound();
-		return;
+	}
+
+	private static class PossiblePosition {
+		private int x, y, rating;
+
+		public PossiblePosition(int x, int y) {
+			this.x = x;
+			this.y = y;
+			this.rating = 0;
+		}
+
+
+		public int getX() {
+			return x;
+		}
+
+		public int getY() {
+			return y;
+		}
+
+		public int getRating() {
+			return rating;
+		}
+
+		public void setRating(int rating) {
+			this.rating = rating;
+		}
 	}
 	
 }
