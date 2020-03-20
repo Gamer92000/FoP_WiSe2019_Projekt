@@ -100,11 +100,6 @@ public class Player implements PlayerMethods{
 	}
 
 	public void placeMeeple(GamePlay gp) {
-		if (this.meeples <= 0) {
-			gp.nextRound();
-			return;
-		}
-
 		GameController gc = gp.getGameController();
 		boolean[] meeples = gc.getGameBoard().getMeepleSpots();
 		if (meeples == null) {
