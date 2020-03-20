@@ -5,8 +5,10 @@ import fop.controller.GameController;
 import fop.model.gameplay.GamePlay;
 import fop.model.interfaces.GameConstants;
 import fop.model.interfaces.PlayerMethods;
+import fop.model.tile.FeatureType;
 import fop.model.tile.Position;
 import fop.model.tile.Tile;
+import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -62,56 +64,90 @@ public class Player implements PlayerMethods{
 		meeples++;
 	}
 
-	// TODO
 	public void draw(GamePlay gp, Tile tile) {
 		if (tile == null) return;
 
-		List<PossiblePosition> possiblePositions = new ArrayList<>();
+		List<RateableTilePosition> tilePositions = new ArrayList<>();
 		GameController gc = gp.getGameController();
 		Tile[][] board = gc.getGameBoard().getBoard();
 		for (int i = 0; i < 144; i++) {
 			for (int j = 0; j < 144; j++) {
 				if (board[i][j] != null) continue;
 				if (!gc.getGameBoard().isTileAllowed(tile, i, j)) continue;
-				possiblePositions.add(new PossiblePosition(i, j));
+				tilePositions.add(new RateableTilePosition(i, j));
 			}
 		}
 
-		if (possiblePositions.isEmpty()) return;
-		possiblePositions.sort(Comparator.comparing(PossiblePosition::getRating));
-		PossiblePosition position = possiblePositions.get(0);
+		if (tilePositions.isEmpty()) return;
+		tilePositions.forEach(p -> this.rateTile(tile, p));
+		tilePositions.sort(Comparator.comparing(Rateable::getRating));
+		RateableTilePosition position = tilePositions.get(0);
 		gp.newTile(tile, position.getX(), position.getY());
-		//gc.getTileStack().push(gc.getTileStack());
+		// gc.getTileStack().push(gc.getTileStack()); do we need this?
 	}
 
-	// TODO
+	private void rateTile(Tile tile, RateableTilePosition position) {
+		// TODO
+	}
+
+	private void rateMeeple(GamePlay gp, RateableMeeplePosition position) {
+		// TODO
+		Tile tile = gp.getGameController().getGameBoard().getNewestTile();
+		if (tile.getNode(position.getPosition()).getType() == FeatureType.CASTLE)
+			position.incrementRating(5);
+		else
+			position.incrementRating();
+	}
+
 	public void placeMeeple(GamePlay gp) {
-		//if no position is allowed, you have to call nextRound() by yourself. 
-		//to place a meeple, call gp.placeMeeple(...).
+		if (this.meeples <= 0)
+			return;
 
 		GameController gc = gp.getGameController();
-		boolean[] meaples = gc.getGameBoard().getMeepleSpots();
-		if (meaples == null) {
-			gp.nextRound();
+		boolean[] meeples = gc.getGameBoard().getMeepleSpots();
+		if (meeples == null)
 			return;
-		}
 
+		List<RateableMeeplePosition> meeplePositions = new ArrayList<>();
 		for (int i = 0; i < 9; i++) {
-			if (!meaples[i]) continue;
-			gp.placeMeeple(Position.values()[i]);
-			return;
+			if (!meeples[i]) continue;
+			meeplePositions.add(new RateableMeeplePosition(Position.values()[i]));
 		}
 
-		gp.nextRound();
+		if (meeplePositions.isEmpty()) return;
+		meeplePositions.forEach(p -> this.rateMeeple(gp, p));
+		meeplePositions.sort(Comparator.comparingInt(Rateable::getRating));
+		gp.placeMeeple(meeplePositions.get(0).getPosition());
 	}
 
-	private static class PossiblePosition {
-		private int x, y, rating;
+	private static class Rateable {
 
-		public PossiblePosition(int x, int y) {
+		private  int rating = 0;
+
+		public int getRating() {
+			return rating;
+		}
+
+		public void incrementRating() {
+			incrementRating(1);
+		}
+
+		public void incrementRating(int i) {
+			rating += i;
+		}
+
+		public void setRating(int rating) {
+			this.rating = rating;
+		}
+	}
+
+	private static class RateableTilePosition extends Rateable {
+
+		private int x, y;
+
+		public RateableTilePosition(int x, int y) {
 			this.x = x;
 			this.y = y;
-			this.rating = 0;
 		}
 
 		public int getX() {
@@ -121,13 +157,18 @@ public class Player implements PlayerMethods{
 		public int getY() {
 			return y;
 		}
+	}
 
-		public int getRating() {
-			return rating;
+	private static class RateableMeeplePosition extends Rateable {
+
+		private Position position;
+
+		public RateableMeeplePosition(Position position) {
+			this.position = position;
 		}
 
-		public void setRating(int rating) {
-			this.rating = rating;
+		public Position getPosition() {
+			return position;
 		}
 	}
 	

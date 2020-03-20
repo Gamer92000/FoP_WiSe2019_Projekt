@@ -152,7 +152,8 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 			boolean[] meepleSpots = gc.getGameBoard().getMeepleSpots();
 			if(currentPlayer().getName().equals("AI")) {
 				currentPlayer().placeMeeple(this);
-			}else if (meepleSpots != null && !currentPlayer().getName().equals("AI")) {
+				nextRound();
+			} else if (meepleSpots != null && !currentPlayer().getName().equals("AI")) {
 				gc.getGameBoardPanel().showTemporaryMeepleOverlay(meepleSpots, newestTile.x, newestTile.y,
 						currentPlayer());
 				gc.getTileStackPanel().hideTopTile();
