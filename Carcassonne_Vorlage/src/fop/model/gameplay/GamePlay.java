@@ -119,25 +119,25 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 
 	@Override
 	public void placing_Tile_Mode() {
-		if(currentPlayer().getName().equals("AI")) {
-			Tile tile = gc.getTileStack().pickUpTile();
-			currentPlayer().draw(this, tile);
-			if (gc.getTileStack().remainingTiles() != 0) gc.getTileStack().push(gc.getTileStack());
-			gc.setState(State.PLACING_MEEPLE);
-			return;
-		}
 		push(gc.getPlayers()); // push players to observers (= ToolbarPanel)
-
+	
 		// According to the rules, a tile that does not fit anywhere is not mixed into
 		// the stack again, but simply discarded.
 		if (!gc.getGameBoard().isTileAllowedAnywhere(gc.getTileStack().peekTile())) {
 			gc.getTileStack().discardTopTile();
 		}
-
+	
 		gc.getTileStack().push(gc.getTileStack()); // pushes tile stack to observers (= TileStackPanel)
+		if(currentPlayer().getName().equals("AI")) {
+			Tile tile = gc.getTileStack().pickUpTile();
+			currentPlayer().draw(this, tile);
+			//gc.getTileStack().push(gc.getTileStack());
+			gc.setState(State.PLACING_MEEPLE);
+			return;
+		}
 		gc.getGameView().getToolbarPanel().showSkipButton(false);
 		gc.getGameView().setStatusbarPanel(
-				MessagesConstants.playerPlacingTile(currentPlayer().getName()), currentPlayer().getColor().getMeepleColor());
+		MessagesConstants.playerPlacingTile(currentPlayer().getName()), currentPlayer().getColor().getMeepleColor());
 	}
 
 	@Override
