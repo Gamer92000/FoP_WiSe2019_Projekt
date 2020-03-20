@@ -1,23 +1,19 @@
 package fop.view.gui;
 
-import java.util.List;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.border.MatteBorder;
-import javax.swing.table.DefaultTableModel;
-
 import fop.model.interfaces.GameMethods;
 import fop.model.interfaces.MessagesConstants;
 import fop.model.player.ScoreEntry;
 import fop.view.components.View;
 import fop.view.components.gui.Resources;
+
+import javax.swing.*;
+import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Vector;
 
 /**
  * HighScore Area
@@ -31,6 +27,8 @@ public class HighscoreView extends View {
 	private JTable scoreTable;
 	private JLabel lblTitle;
 	private JScrollPane scrollPane;
+
+	private MatteBorder border = new MatteBorder(0, 0, 1, 0, Color.BLACK);
 
 	public HighscoreView(GameWindow gameWindow) {
 		super(gameWindow);
@@ -53,25 +51,23 @@ public class HighscoreView extends View {
 		btnBack = createButton("Back");
 		btnClear = createButton("Delete");
 		lblTitle = createLabel("Highscores", 45, true);
-		
-		
+
 		Resources resources = Resources.getInstance();
-		// TODO
-		DefaultTableModel model = new DefaultTableModel(); 
-		
-		//adding the Colums
+
+		// creating the table
+		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Date");
 		model.addColumn("Name");
 		model.addColumn("Points");
-		
-		
-		
-		//adding the Highscores
-		
-		List<ScoreEntry> scores = resources.getScoreEntries();
-		
-		for(int i = 0; i < scores.size(); i++) {
-            model.addRow(new Object[] {" " + scores.get(i).getDate().toInstant().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")), " " + scores.get(i).getName(), " " + scores.get(i).getScore()});}
+
+		// adding the highscores
+		for (ScoreEntry score : resources.getScoreEntries()) {
+			Vector<String> vector = new Vector<>();
+			vector.add(" " + score.getDate().toInstant().atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")));
+			vector.add(" " + score.getName());
+			vector.add(" " + score.getScore());
+			model.addRow(vector);
+		}
 		
 		scoreTable = new JTable(model);
 		scoreTable.setLocation(0,0);
@@ -81,36 +77,32 @@ public class HighscoreView extends View {
 		scoreTable.setAlignmentX(CENTER_ALIGNMENT);
 		
 		boolean ugly = true;
-		
 		scoreTable.setRowHeight(ugly ? 25 : 22);
 		if (ugly) scoreTable.setFont(resources.getCelticFont());
 		if (ugly) scoreTable.getTableHeader().setFont(resources.getCelticFont());
 		
-		scoreTable.getTableHeader().setBorder(new MatteBorder(0, 0, 1, 0, Color.BLACK));
+		scoreTable.getTableHeader().setBorder(border);
 		scoreTable.getTableHeader().setReorderingAllowed(false);
 		scoreTable.getTableHeader().setResizingAllowed(false);
 		scoreTable.getTableHeader().setBackground(Color.WHITE);
 		scoreTable.getTableHeader().removeAll();
-		
-		scoreTable.setDefaultRenderer(Object.class, new CellRendererHighscore());
-		
+		scoreTable.setFillsViewportHeight(true);
+		scoreTable.setDefaultRenderer(Object.class, new CellRendererHighscore(this));
+
 		scrollPane = new JScrollPane(scoreTable);
-		
 		add(scrollPane);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
-		if (actionEvent.getSource().equals(btnBack)) {
+		if (actionEvent.getSource().equals(btnBack))
 			GameMethods.GoToMainMenu();
-
-		} else {
-				int message = MessagesConstants.deleteHighScore();
-				GameMethods.deleteHighScoreEntries(message);
-		}
+		 else
+			GameMethods.deleteHighScoreEntries(MessagesConstants.deleteHighScore());
 	}
-	
-	
-	
+
+	public MatteBorder getBorder() {
+		return border;
+	}
 	
 }
