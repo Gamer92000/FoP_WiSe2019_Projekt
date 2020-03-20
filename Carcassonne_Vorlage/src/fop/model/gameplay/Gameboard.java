@@ -334,8 +334,10 @@ public class Gameboard extends Observable<Gameboard> {
 			
 			if (completed && !meeples.isEmpty() && type != FIELDS) {
 				score = tiles.size();
-				if (type == CASTLE)
+				if (type == CASTLE) {
 					score *= 2;
+					score += pennants*2;
+				}
 				
 				List<Player> owners = new ArrayList<Player>();
 				maxMeeple = 0;
