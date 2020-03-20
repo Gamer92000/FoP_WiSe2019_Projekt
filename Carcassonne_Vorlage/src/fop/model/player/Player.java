@@ -5,12 +5,11 @@ import fop.controller.GameController;
 import fop.model.gameplay.GamePlay;
 import fop.model.interfaces.GameConstants;
 import fop.model.interfaces.PlayerMethods;
-import fop.model.tile.FeatureType;
 import fop.model.tile.Position;
 import fop.model.tile.Tile;
-import javafx.geometry.Pos;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -83,20 +82,12 @@ public class Player implements PlayerMethods{
 		tilePositions.sort(Comparator.comparing(Rateable::getRating));
 		RateableTilePosition position = tilePositions.get(0);
 		gp.newTile(tile, position.getX(), position.getY());
-		// gc.getTileStack().push(gc.getTileStack()); do we need this?
 	}
 
 	private void rateTile(Tile tile, RateableTilePosition position) {
-		// TODO
-	}
-
-	private void rateMeeple(GamePlay gp, RateableMeeplePosition position) {
-		// TODO
-		Tile tile = gp.getGameController().getGameBoard().getNewestTile();
-		if (tile.getNode(position.getPosition()).getType() == FeatureType.CASTLE)
-			position.incrementRating(5);
-		else
-			position.incrementRating();
+		int middle = (144 / 2);
+		double distance = Math.sqrt(((middle - tile.x) * (middle - tile.x)) + ((middle - tile.y) * (middle - tile.y)));
+		position.setRating(distance);
 	}
 
 	public void placeMeeple(GamePlay gp) {
@@ -118,16 +109,15 @@ public class Player implements PlayerMethods{
 			return;
 		}
 
-		meeplePositions.forEach(p -> this.rateMeeple(gp, p));
-		meeplePositions.sort(Comparator.comparingInt(Rateable::getRating));
+		Collections.shuffle(meeplePositions);
 		gp.placeMeeple(meeplePositions.get(0).getPosition());
 	}
 
 	private static class Rateable {
 
-		private  int rating = 0;
+		private double rating = 0;
 
-		public int getRating() {
+		public double getRating() {
 			return rating;
 		}
 
@@ -139,7 +129,7 @@ public class Player implements PlayerMethods{
 			rating += i;
 		}
 
-		public void setRating(int rating) {
+		public void setRating(double rating) {
 			this.rating = rating;
 		}
 	}
