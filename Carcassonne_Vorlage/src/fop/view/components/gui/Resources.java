@@ -100,14 +100,13 @@ public class Resources implements GameConstants {
 	 *                     Schreiben auftreten.
 	 */
 	private void saveScoreEntries() throws IOException {
-        File file = HIGHSCORE_FILE;
-       
-        
-        PrintWriter writer = new PrintWriter(new FileWriter(file));
-        for (int i = 0; i < scoreEntries.size(); i++) {
-            scoreEntries.get(i).write(writer);
-            writer.println();
-        }
+		if (!HIGHSCORE_FILE.exists())
+			HIGHSCORE_FILE.createNewFile();
+		PrintWriter writer = new PrintWriter(new FileWriter(HIGHSCORE_FILE));
+		for (ScoreEntry scoreEntry : scoreEntries) {
+			scoreEntry.write(writer);
+			writer.println();
+		}
         writer.close();
     }
 
@@ -125,13 +124,12 @@ public class Resources implements GameConstants {
 	 */
 	private void loadScoreEntries() throws IOException {
 		scoreEntries = new ArrayList<>();
-		
-		File file = HIGHSCORE_FILE;
-		if (!file.exists())
-            file.createNewFile();
+
+		if (!HIGHSCORE_FILE.exists())
+			HIGHSCORE_FILE.createNewFile();
 
 		try {
-		    Files.lines(Paths.get(file.getPath())).forEach(line -> {
+		    Files.lines(Paths.get(HIGHSCORE_FILE.getPath())).forEach(line -> {
 		        ScoreEntry entry = ScoreEntry.read(line);
 		        if (entry == null) return;
 		        scoreEntries.add(entry);

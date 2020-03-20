@@ -1,5 +1,6 @@
 package fop.model.player;
 
+
 import fop.controller.GameController;
 import fop.model.gameplay.GamePlay;
 import fop.model.interfaces.GameConstants;
@@ -58,15 +59,38 @@ public class Player implements PlayerMethods{
 	}
 	
 	public void draw(GamePlay gp, Tile tile) {
+		if (tile == null) gp.nextRound();
+		
 		GameController gc = gp.getGameController();
 		// TODO
+		Tile[][] board = gc.getGameBoard().getBoard();
+		outer:
+		for (int i = 0; i < 144; i++)
+			for (int j = 0; j < 144; j++) {
+				if (board[i][j] == null && gc.getGameBoard().isTileAllowed(tile, i, j)) {		
+					gp.newTile(tile, i, j);
+					//gc.getTileStack().push(gc.getTileStack());
+					return;
+				}
+			}
 	}
 	
 	public void placeMeeple(GamePlay gp) {
-		GameController gc = gp.getGameController();
 		//TODO
 		//if no position is allowed, you have to call nextRound() by yourself. 
 		//to place a meeple, call gp.placeMeeple(...).
+		GameController gc = gp.getGameController();
+
+		boolean meaples[] = gc.getGameBoard().getMeepleSpots();
+		if(meaples != null)
+			for (int i = 0; i < 9; i++) 
+				if (meaples[i] == true) {
+					gp.placeMeeple(Position.values()[i]);
+					return;
+				}
+
+		gp.nextRound();
+		return;
 	}
 	
 }

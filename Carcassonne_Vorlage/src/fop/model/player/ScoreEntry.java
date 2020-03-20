@@ -57,10 +57,10 @@ public class ScoreEntry implements Comparable<ScoreEntry> {
 	 * @return
 	 */
 	public static ScoreEntry read(String line) {
-		
-		
 		String[] split = line.split(";");
-	    if (split.length != 3) return null;
+	    if (split.length != 3)
+	    	return null;
+
 	    try {
 	        long timestamp = Long.parseLong(split[1]);
 	        int score = Integer.parseInt(split[2]);
