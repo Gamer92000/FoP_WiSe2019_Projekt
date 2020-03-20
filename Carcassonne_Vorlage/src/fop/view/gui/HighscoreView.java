@@ -72,8 +72,10 @@ public class HighscoreView extends View {
 		scoreTable = new JTable(model);
 		scoreTable.setLocation(0,0);
 		scoreTable.setShowHorizontalLines(false);
+		scoreTable.setShowVerticalLines(false);
 		scoreTable.setEnabled(false);
 		scoreTable.setVisible(true);
+		scoreTable.setIntercellSpacing(new Dimension(0, 1));
 		scoreTable.setAlignmentX(CENTER_ALIGNMENT);
 		
 		boolean ugly = true;

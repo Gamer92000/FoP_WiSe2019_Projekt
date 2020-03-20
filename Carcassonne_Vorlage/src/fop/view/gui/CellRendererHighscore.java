@@ -3,6 +3,7 @@ package fop.view.gui;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 @SuppressWarnings("serial")
 public class CellRendererHighscore extends DefaultTableCellRenderer{
@@ -28,27 +29,31 @@ public class CellRendererHighscore extends DefaultTableCellRenderer{
 		super.paintComponent(g);
 	}
 
-	private GradientPaint getPaint() {
+	private LinearGradientPaint getPaint() {
 		int row = getRow();
 		switch (row) {
-			case 0: return createPaint( new Color(238, 182 , 9), new Color(198, 147, 32));
-			case 1: return createPaint(new Color(206, 212, 216), new Color(190, 194, 203));
-			case 2: return createPaint(new Color(204, 142, 62), new Color(205, 127, 50));
+			case 0: return createPaint(new Color(248, 195, 35), new Color(255, 213, 141));
+			case 1: return createPaint(new Color(187, 181, 183), new Color(242, 231, 235));
+			case 2: return createPaint(new Color(254, 138, 44), new Color(255, 172, 108));
 			default: return row % 2 == 0 ? createPaint(Color.WHITE, Color.WHITE) : createPaint(new Color(235, 235, 235), new Color(235, 235, 235));
 		}
 	}
 
-	private GradientPaint createPaint(Color color1, Color color2) {
-		return new GradientPaint(-(getColumn() * getWidth()), 0, color1, (3 - getColumn()) * getWidth(), getHeight(), color2);
+	private LinearGradientPaint createPaint(Color color1, Color color2) {
+		Point2D start = new Point2D.Float(-(getColumn() * getWidth()), 0);
+		Point2D end = new Point2D.Float((3 - getColumn()) * getWidth(), getHeight());
+		float[] dist = {0.0f, 0.5f, 1.0f};
+		Color[] colors = {color1, color2, color1};
+		return new LinearGradientPaint(start, end, dist, colors);
 	}
 
 	private int getColumn() {
-		return getX() / getWidth();
+		return getX() / (getWidth()-1);
 	}
 
 	private int getRow() {
 		Insets border = highscoreView.getBorder().getBorderInsets();
-		return (getY() / (border.bottom + border.top + getHeight()));
+		return (getY() / (border.bottom + border.top + getHeight() -1));
 	}
 
 }
