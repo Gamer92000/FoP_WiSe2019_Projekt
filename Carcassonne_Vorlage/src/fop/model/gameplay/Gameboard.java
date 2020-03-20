@@ -12,6 +12,7 @@ import static fop.model.tile.Position.*;
 import fop.model.tile.Tile;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,7 +58,6 @@ public class Gameboard extends Observable<Gameboard> {
 
 		Tile t = board[x][y];
 
-		// Check top tile
 		// TODO
 			// This might be helpful:
 			// As we already ensured that the tile on top exists and fits the tile at x, y,
@@ -65,18 +65,17 @@ public class Gameboard extends Observable<Gameboard> {
 			// of the tile on top is a ROAD aswell. As every ROAD has FIELD nodes as
 			// neighbours on both sides, we can connect those nodes of the two tiles. The
 			// same logic applies to the next three routines.
-		int x1 = x; int y1 = y-1;
-		Position a  = TOP;      Position b  = BOTTOM;
-		Position a1 = TOPLEFT;  Position b1 = BOTTOMLEFT;
-		Position a2 = TOPRIGHT; Position b2 = BOTTOMRIGHT;
+		// Check bottom tile
+		int x1 = x; int y1 = y+1;
+		Position a  = BOTTOM;      Position b  = TOP;
+		Position a1 = BOTTOMLEFT;  Position b1 = TOPLEFT;
+		Position a2 = BOTTOMRIGHT; Position b2 = TOPRIGHT;
 		if(board[x1][y1] != null) {
-			graph.addEdge(board[x][y].getNode(a), board[x1][y].getNode(b));
-			if(board[x][y].getNode(a1) != null && board[x1][y1].getNode(b1) != null)
-				if (board[x][y].getNode(a1).equals(board[x1][y].getNode(b1)))
-					graph.addEdge(board[x][y].getNode(a1), board[x1][y1].getNode(b1));
-			if (board[x][y].getNode(a2) != null && board[x1][y1].getNode(b2) != null)
-				if(board[x][y].getNode(a2).equals(board[x1][y1].getNode(b2)))
-					graph.addEdge(board[x][y].getNode(a2), board[x1][y1].getNode(b2));
+			graph.addEdge(t.getNode(a), board[x1][y1].getNode(b));
+			if(t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
+				graph.addEdge(t.getNode(a1), board[x1][y1].getNode(b1));
+			if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
+				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
 		}
 
 
@@ -87,45 +86,39 @@ public class Gameboard extends Observable<Gameboard> {
 		a1 = TOPLEFT;    b1 = TOPRIGHT;
 		a2 = BOTTOMLEFT; b2 = BOTTOMRIGHT;
 		if(board[x1][y1] != null) {
-			graph.addEdge(board[x][y].getNode(a), board[x1][y].getNode(b));
-			if(board[x][y].getNode(a1) != null && board[x1][y1].getNode(b1) != null)
-				if (board[x][y].getNode(a1).equals(board[x1][y].getNode(b1)))
-					graph.addEdge(board[x][y].getNode(a1), board[x1][y1].getNode(b1));
-			if (board[x][y].getNode(a2) != null && board[x1][y1].getNode(b2) != null)
-				if(board[x][y].getNode(a2).equals(board[x1][y1].getNode(b2)))
-					graph.addEdge(board[x][y].getNode(a2), board[x1][y1].getNode(b2));
+			graph.addEdge(t.getNode(a), board[x1][y1].getNode(b));
+			if(t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
+				graph.addEdge(t.getNode(a1), board[x1][y1].getNode(b1));
+			if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
+				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
 		}
 
 		// Check right tile
 		// TODO
-		x1 = x-1; y1 = y;
+		x1 = x+1; y1 = y;
 		a  = RIGHT;       b  = LEFT;
 		a1 = TOPRIGHT;    b1 = TOPLEFT;
 		a2 = BOTTOMRIGHT; b2 = BOTTOMLEFT;
 		if(board[x1][y1] != null) {
-			graph.addEdge(board[x][y].getNode(a), board[x1][y].getNode(b));
-			if(board[x][y].getNode(a1) != null && board[x1][y1].getNode(b1) != null)
-				if (board[x][y].getNode(a1).equals(board[x1][y].getNode(b1)))
-					graph.addEdge(board[x][y].getNode(a1), board[x1][y1].getNode(b1));
-			if (board[x][y].getNode(a2) != null && board[x1][y1].getNode(b2) != null)
-				if(board[x][y].getNode(a2).equals(board[x1][y1].getNode(b2)))
-					graph.addEdge(board[x][y].getNode(a2), board[x1][y1].getNode(b2));
+			graph.addEdge(t.getNode(a), board[x1][y1].getNode(b));
+			if(t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
+				graph.addEdge(t.getNode(a1), board[x1][y1].getNode(b1));
+			if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
+				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
 		}
 
-		// Check bottom tile
+		// Check top tile
 		// TODO
-		x1 = x-1; y1 = y;
-		a  = BOTTOM;      b  = TOP;
-		a1 = BOTTOMLEFT;  b1 = TOPLEFT;
-		a2 = BOTTOMRIGHT; b2 = TOPRIGHT;
+		x1 = x; y1 = y-1;
+		a  = TOP;      b  = BOTTOM;
+		a1 = TOPLEFT;  b1 = BOTTOMLEFT;
+		a2 = TOPRIGHT; b2 = BOTTOMRIGHT;
 		if(board[x1][y1] != null) {
-			graph.addEdge(board[x][y].getNode(a), board[x1][y].getNode(b));
-			if(board[x][y].getNode(a1) != null && board[x1][y1].getNode(b1) != null)
-				if (board[x][y].getNode(a1).equals(board[x1][y].getNode(b1)))
-					graph.addEdge(board[x][y].getNode(a1), board[x1][y1].getNode(b1));
-			if (board[x][y].getNode(a2) != null && board[x1][y1].getNode(b2) != null)
-				if(board[x][y].getNode(a2).equals(board[x1][y1].getNode(b2)))
-					graph.addEdge(board[x][y].getNode(a2), board[x1][y1].getNode(b2));
+			graph.addEdge(t.getNode(a), board[x1][y1].getNode(b));
+			if(t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
+				graph.addEdge(t.getNode(a1), board[x1][y1].getNode(b1));
+			if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
+				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
 		}
 	}
 
@@ -272,7 +265,8 @@ public class Gameboard extends Observable<Gameboard> {
 		// queue defines the connected graph. If this queue is empty, every node in this graph will be visited.
 		// if nodeList is non-empty, insert the next node of nodeList into this queue
 		ArrayDeque<Node<FeatureType>> queue = new ArrayDeque<>();
-		
+
+		System.out.println("~~~~~~~~ new calculate ~~~~~~~~");
 		// for each feature
 		while (!nodeList.isEmpty()) {
 			
@@ -281,8 +275,12 @@ public class Gameboard extends Observable<Gameboard> {
 									// connect to any other tile
 
 			queue.push(nodeList.remove(0));
+
+			HashMap<Player, Integer> meeples = new HashMap<Player, Integer>();
 			
+			List<Tile> tiles = new ArrayList<Tile>();
 			// complete processing of feature
+			System.out.println("--------- new feature ----------");
 			while (!queue.isEmpty()) {
 				
 				List<Node<FeatureType>> addToQueue = new ArrayList<Node<FeatureType>>();
@@ -290,26 +288,52 @@ public class Gameboard extends Observable<Gameboard> {
 				for (Node<FeatureType> node : queue) {
 					
 					Tile tile = getTileContainingNode((FeatureNode) node); // again, no way this works
-					List<Edge<FeatureType>> edges = tile.getEdges();
-					// process current node
 					
-					score++; // this is of course stupid
+					List<Edge<FeatureType>> edges = tile.getEdges();
+					
+					// process current node
+					if (!tiles.contains(tile)) {
+						tiles.add(tile);
+						System.out.println("new tile for " + type + ", type: " + tile.getType());
+					}
+					// score: castle: tile and crest / road: tile
 					// look for meeple
+					FeatureNode fNode = (FeatureNode) node;
+					
+					if (tile.hasMeeple() && fNode == tile.getNodeAtPosition(tile.getMeeplePosition()))
+						if(!meeples.containsKey(tile.getMeeple()))
+							meeples.put(tile.getMeeple(), 1);
+						else
+							meeples.put(tile.getMeeple(), meeples.get(tile.getMeeple()) );
 					// look for completed
 					
+					if(!fNode.isConnectingTiles())
+						completed = false;
 					
-					// prepare adding new nodes
-					for (Edge<FeatureType> edge : edges)
-						if (edge.contains(node)) {
-							Node<FeatureType> otherNode = edge.getOtherNode(node);
-							if (nodeList.remove(otherNode)) // only add if not processed yet
-								addToQueue.add(otherNode);
-						}
+					
+					queue.remove(node);
+					
+					// nodes connecting tiles
+					for (Edge<FeatureType> edge : graph.getEdges(node)) {
+						Node<FeatureType> otherNode = edge.getOtherNode(node);
+						if (nodeList.remove(otherNode)) // only add if not processed yet
+							addToQueue.add(otherNode);
+					}
 				}
 				
 				queue.addAll(addToQueue);
+				
+				
+				
 			}
 			
+			if(completed) {
+			score = tiles.size();
+			System.out.println("wooooooooooooooooooooh completed");
+		    System.out.println("=> SCORE: " + score);
+		    System.out.println("Meeples: " + meeples);
+			// if completed: castle: score*2 / road: score
+			}
 
 			// Iterate as long as the queue is not empty
 			// Remember: queue defines a connected graph
