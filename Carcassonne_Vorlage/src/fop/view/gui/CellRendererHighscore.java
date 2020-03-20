@@ -48,7 +48,7 @@ public class CellRendererHighscore extends DefaultTableCellRenderer{
 	}
 
 	private int getColumn() {
-		return getX() / (getWidth());
+		return getX() / (getWidth()-1);
 	}
 
 	private int getRow() {
