@@ -13,6 +13,7 @@ import fop.view.components.View;
 import fop.view.components.gui.Resources;
 
 
+@SuppressWarnings("serial")
 public class GameWindow extends JFrame {
 
     private View activeView;

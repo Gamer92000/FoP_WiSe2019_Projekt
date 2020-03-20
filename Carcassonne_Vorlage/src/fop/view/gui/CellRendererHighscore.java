@@ -35,7 +35,7 @@ public class CellRendererHighscore extends DefaultTableCellRenderer{
 			case 0: return createPaint(new Color(248, 195, 35), new Color(255, 213, 141));
 			case 1: return createPaint(new Color(187, 181, 183), new Color(242, 231, 235));
 			case 2: return createPaint(new Color(254, 138, 44), new Color(255, 172, 108));
-			default: return row % 2 == 0 ? createPaint(Color.WHITE, Color.WHITE) : createPaint(new Color(235, 235, 235), new Color(235, 235, 235));
+			default: return row % 2 == 1 ? createPaint(Color.WHITE, Color.WHITE) : createPaint(new Color(235, 235, 235), new Color(235, 235, 235));
 		}
 	}
 
@@ -48,12 +48,12 @@ public class CellRendererHighscore extends DefaultTableCellRenderer{
 	}
 
 	private int getColumn() {
-		return getX() / (getWidth()-1);
+		return getX() / (getWidth());
 	}
 
 	private int getRow() {
 		Insets border = highscoreView.getBorder().getBorderInsets();
-		return (getY() / (border.bottom + border.top + getHeight() -1));
+		return (getY() / (border.bottom + border.top + getHeight()));
 	}
 
 }

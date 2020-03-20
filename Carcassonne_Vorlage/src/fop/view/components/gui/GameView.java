@@ -15,6 +15,7 @@ import fop.view.components.GameBoardPanel;
 import fop.view.components.ToolbarPanel;
 import fop.view.components.tile.TileStackPanel;
 
+@SuppressWarnings("serial")
 public class GameView extends JPanel implements GameViewMethods {
 
 	private GameBoardPanel gameBoardPanel;

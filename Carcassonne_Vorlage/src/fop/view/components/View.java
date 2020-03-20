@@ -28,6 +28,7 @@ import fop.view.gui.GameWindow;
 /**
  * this abstract class defines our specific containers
  */
+@SuppressWarnings("serial")
 public abstract class View extends Container implements ActionListener, GameConstants {
 
 	private GameWindow gameWindow;

@@ -44,6 +44,7 @@ public class HighscoreView extends View {
 
 		btnBack.setLocation((getWidth() / 3) - (BUTTON_SIZE.width / 2), getHeight() - BUTTON_SIZE.height - 25);
 		btnClear.setLocation((2 * (getWidth() / 3) - (BUTTON_SIZE.width / 2)), getHeight() - BUTTON_SIZE.height - 25);
+		paintAll(this.getGraphics());
 	}
 
 	@Override
@@ -106,5 +107,4 @@ public class HighscoreView extends View {
 	public MatteBorder getBorder() {
 		return border;
 	}
-
 }

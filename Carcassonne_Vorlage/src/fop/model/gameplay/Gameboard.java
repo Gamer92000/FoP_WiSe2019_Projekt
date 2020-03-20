@@ -13,7 +13,6 @@ import fop.model.tile.Tile;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -226,9 +225,9 @@ public class Gameboard extends Observable<Gameboard> {
 							if (x+i < 0 || y+j < 0 || x+i >= 144 || y+j >= 144) continue;
 							adj += board[x+i][y+j] != null ? 1 : 0;
 						}
-					if (state == state.GAME_OVER || adj == 9) {
+					if (state == State.GAME_OVER || adj == 9) {
 						tile.getMeeple().addScore(adj);
-						if (state != state.GAME_OVER) {
+						if (state != State.GAME_OVER) {
 							tile.getMeeple().returnMeeple();
 							tile.getNode(tile.getMeeplePosition()).setPlayer(null);
 						}
@@ -359,7 +358,7 @@ public class Gameboard extends Observable<Gameboard> {
 					fNode.setPlayer(null);
 				}
 				
-			} else if (state == state.GAME_OVER) {
+			} else if (state == State.GAME_OVER) {
 				score = tiles.size();
 				if (type == FIELDS) {
 					score /= 4;
