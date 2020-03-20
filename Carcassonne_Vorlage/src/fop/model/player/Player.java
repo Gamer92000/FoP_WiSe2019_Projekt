@@ -61,13 +61,13 @@ public class Player implements PlayerMethods{
 	public void returnMeeple() {
 		meeples++;
 	}
-	
+
+	// TODO
 	public void draw(GamePlay gp, Tile tile) {
-		if (tile == null) gp.nextRound();
+		if (tile == null) return;
 
 		List<PossiblePosition> possiblePositions = new ArrayList<>();
 		GameController gc = gp.getGameController();
-		// TODO
 		Tile[][] board = gc.getGameBoard().getBoard();
 		for (int i = 0; i < 144; i++) {
 			for (int j = 0; j < 144; j++) {
@@ -83,13 +83,13 @@ public class Player implements PlayerMethods{
 		gp.newTile(tile, position.getX(), position.getY());
 		//gc.getTileStack().push(gc.getTileStack());
 	}
-	
+
+	// TODO
 	public void placeMeeple(GamePlay gp) {
-		//TODO
 		//if no position is allowed, you have to call nextRound() by yourself. 
 		//to place a meeple, call gp.placeMeeple(...).
-		GameController gc = gp.getGameController();
 
+		GameController gc = gp.getGameController();
 		boolean[] meaples = gc.getGameBoard().getMeepleSpots();
 		if (meaples == null) {
 			gp.nextRound();
@@ -113,7 +113,6 @@ public class Player implements PlayerMethods{
 			this.y = y;
 			this.rating = 0;
 		}
-
 
 		public int getX() {
 			return x;
