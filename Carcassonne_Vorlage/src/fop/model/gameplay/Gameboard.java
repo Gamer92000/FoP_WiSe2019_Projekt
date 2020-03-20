@@ -273,17 +273,49 @@ public class Gameboard extends Observable<Gameboard> {
 		// if nodeList is non-empty, insert the next node of nodeList into this queue
 		ArrayDeque<Node<FeatureType>> queue = new ArrayDeque<>();
 		
-
-
-		int score = 0;
-		boolean completed = true; // Is the feature completed? Is set to false if a node is visited that does not
+		// for each feature
+		while (!nodeList.isEmpty()) {
+			
+			int score = 0;
+			boolean completed = true; // Is the feature completed? Is set to false if a node is visited that does not
 									// connect to any other tile
 
-		queue.push(nodeList.remove(0));
-		// Iterate as long as the queue is not empty
-		// Remember: queue defines a connected graph
-		
-		//TODO
+			queue.push(nodeList.remove(0));
+			
+			// complete processing of feature
+			while (!queue.isEmpty()) {
+				
+				List<Node<FeatureType>> addToQueue = new ArrayList<Node<FeatureType>>();
+				
+				for (Node<FeatureType> node : queue) {
+					
+					Tile tile = getTileContainingNode((FeatureNode) node); // again, no way this works
+					List<Edge<FeatureType>> edges = tile.getEdges();
+					// process current node
+					
+					score++; // this is of course stupid
+					// look for meeple
+					// look for completed
+					
+					
+					// prepare adding new nodes
+					for (Edge<FeatureType> edge : edges)
+						if (edge.contains(node)) {
+							Node<FeatureType> otherNode = edge.getOtherNode(node);
+							if (nodeList.remove(otherNode)) // only add if not processed yet
+								addToQueue.add(otherNode);
+						}
+				}
+				
+				queue.addAll(addToQueue);
+			}
+			
+
+			// Iterate as long as the queue is not empty
+			// Remember: queue defines a connected graph
+			
+			//TODO
+		}
 		
 		// Hint:
 		// If there is one straight positioned node that does not connect to another
