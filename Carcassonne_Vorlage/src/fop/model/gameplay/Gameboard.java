@@ -13,6 +13,7 @@ import fop.model.tile.Tile;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class Gameboard extends Observable<Gameboard> {
 	private List<Tile> tiles;
 	private FeatureGraph graph;
 	private Tile newestTile;
+	
 
 	public Gameboard() {
 		board = new Tile[144][144];
@@ -241,6 +243,9 @@ public class Gameboard extends Observable<Gameboard> {
 	 * 
 	 * @param state The current game state.
 	 */
+	
+	int maxMeeple;
+	
 	public void calculatePoints(State state) {
 		// Fields are only calculated on final scoring.
 		if (state == State.GAME_OVER)
@@ -266,7 +271,6 @@ public class Gameboard extends Observable<Gameboard> {
 		// if nodeList is non-empty, insert the next node of nodeList into this queue
 		ArrayDeque<Node<FeatureType>> queue = new ArrayDeque<>();
 
-		System.out.println("~~~~~~~~ new calculate ~~~~~~~~");
 		// for each feature
 		while (!nodeList.isEmpty()) {
 			
@@ -277,14 +281,14 @@ public class Gameboard extends Observable<Gameboard> {
 			queue.push(nodeList.remove(0));
 
 			HashMap<Player, Integer> meeples = new HashMap<Player, Integer>();
+			List<FeatureNode> nodesWithMeeple = new ArrayList<FeatureNode>();
 			
 			List<Tile> tiles = new ArrayList<Tile>();
+			int pennants = 0;
 			// complete processing of feature
-			System.out.println("--------- new feature ----------");
 			while (!queue.isEmpty()) {
 				
 				List<Node<FeatureType>> addToQueue = new ArrayList<Node<FeatureType>>();
-				
 				for (Node<FeatureType> node : queue) {
 					
 					Tile tile = getTileContainingNode((FeatureNode) node); // again, no way this works
@@ -294,20 +298,22 @@ public class Gameboard extends Observable<Gameboard> {
 					// process current node
 					if (!tiles.contains(tile)) {
 						tiles.add(tile);
-						System.out.println("new tile for " + type + ", type: " + tile.getType());
+						if (tile.hasPennant())
+							pennants++;
 					}
-					// score: castle: tile and crest / road: tile
 					// look for meeple
 					FeatureNode fNode = (FeatureNode) node;
 					
-					if (tile.hasMeeple() && fNode == tile.getNodeAtPosition(tile.getMeeplePosition()))
+					if (tile.hasMeeple() && fNode == tile.getNodeAtPosition(tile.getMeeplePosition())) {
+						nodesWithMeeple.add(fNode);
 						if(!meeples.containsKey(tile.getMeeple()))
 							meeples.put(tile.getMeeple(), 1);
 						else
 							meeples.put(tile.getMeeple(), meeples.get(tile.getMeeple()) );
+					}
 					// look for completed
 					
-					if(!fNode.isConnectingTiles())
+					if(tile.getNodeAtPosition(CENTER) != fNode && !fNode.isConnectingTiles())
 						completed = false;
 					
 					
@@ -327,26 +333,57 @@ public class Gameboard extends Observable<Gameboard> {
 				
 			}
 			
-			if(completed) {
-			score = tiles.size();
-			System.out.println("wooooooooooooooooooooh completed");
-		    System.out.println("=> SCORE: " + score);
-		    System.out.println("Meeples: " + meeples);
-			// if completed: castle: score*2 / road: score
+			if (completed && !meeples.isEmpty() && type != FIELDS) {
+				score = tiles.size();
+				if (type == CASTLE)
+					score *= 2;
+				
+				List<Player> owners = new ArrayList<Player>();
+				maxMeeple = 0;
+				
+				meeples.forEach((x,y) -> {
+					if(y == maxMeeple)
+						owners.add(x);
+					if(y > maxMeeple){
+						owners.clear();
+						owners.add(x);
+						maxMeeple = y;
+					}
+				});
+				
+				for (Player p : owners)
+					p.addScore(score);
+				
+				for (FeatureNode fNode : nodesWithMeeple) {
+					fNode.getPlayer().returnMeeple();
+					fNode.setPlayer(null);
+				}
+				
+			} else if (state == state.GAME_OVER) {
+				score = tiles.size();
+				if (type == FIELDS) {
+					score /= 4;
+				}
+				
+				List<Player> owners = new ArrayList<Player>();
+				maxMeeple = 0;
+				
+				meeples.forEach((x,y) -> {
+					if(y == maxMeeple)
+						owners.add(x);
+					if(y > maxMeeple){
+						owners.clear();
+						owners.add(x);
+						maxMeeple = y;
+					}
+				});
+				
+				for (Player p : owners)
+					p.addScore(score);
+				
 			}
-
-			// Iterate as long as the queue is not empty
-			// Remember: queue defines a connected graph
 			
-			//TODO
 		}
-		
-		// Hint:
-		// If there is one straight positioned node that does not connect to another
-		// tile, the feature cannot be completed.
-
-
-		//TODO
 	}
 
 	/**
