@@ -65,7 +65,7 @@ public class Player implements PlayerMethods{
 	public void draw(GamePlay gp, Tile tile) {
 		if (tile == null) gp.nextRound();
 
-		List<PossiblePosition> possibleTiles = new ArrayList<>();
+		List<PossiblePosition> possiblePositions = new ArrayList<>();
 		GameController gc = gp.getGameController();
 		// TODO
 		Tile[][] board = gc.getGameBoard().getBoard();
@@ -73,13 +73,13 @@ public class Player implements PlayerMethods{
 			for (int j = 0; j < 144; j++) {
 				if (board[i][j] != null) continue;
 				if (!gc.getGameBoard().isTileAllowed(tile, i, j)) continue;
-				possibleTiles.add(new PossiblePosition(i, j));
+				possiblePositions.add(new PossiblePosition(i, j));
 			}
 		}
 
-		if (possibleTiles.isEmpty()) return;
-		possibleTiles.sort(Comparator.comparing(PossiblePosition::getRating));
-		PossiblePosition position = possibleTiles.get(0);
+		if (possiblePositions.isEmpty()) return;
+		possiblePositions.sort(Comparator.comparing(PossiblePosition::getRating));
+		PossiblePosition position = possiblePositions.get(0);
 		gp.newTile(tile, position.getX(), position.getY());
 		//gc.getTileStack().push(gc.getTileStack());
 	}
