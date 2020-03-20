@@ -2,10 +2,9 @@ package fop.view.components.gui;
 
 import fop.model.interfaces.GameConstants;
 import fop.model.player.ScoreEntry;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
-import java.io.File;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +14,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 public class Resources implements GameConstants {
 
@@ -150,12 +148,9 @@ public class Resources implements GameConstants {
 	 * @see ScoreEntry#compareTo(ScoreEntry)
 	 */
 	public void addScoreEntry(ScoreEntry scoreEntry) {
-		// TODO
-		
 		scoreEntries.add(scoreEntry);
-		scoreEntries.sort(Comparator.comparing(ScoreEntry:: getScore));
+		scoreEntries.sort(Comparator.comparing(ScoreEntry::getScore));
 		scoreEntries.sort(Comparator.reverseOrder());
-		
 	}
 
 	public void clearEntries() throws IOException {
