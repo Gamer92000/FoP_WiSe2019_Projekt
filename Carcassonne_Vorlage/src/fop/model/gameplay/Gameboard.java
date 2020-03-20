@@ -12,6 +12,7 @@ import static fop.model.tile.Position.*;
 import fop.model.tile.Tile;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +22,10 @@ public class Gameboard extends Observable<Gameboard> {
 	private List<Tile> tiles;
 	private FeatureGraph graph;
 	private Tile newestTile;
+	
+	
+	private int score = 0;
+	private boolean completed = true, addedNode = true;
 
 	public Gameboard() {
 		board = new Tile[144][144];
@@ -266,15 +271,72 @@ public class Gameboard extends Observable<Gameboard> {
 	public void calculatePoints(FeatureType type, State state) {
 		List<Node<FeatureType>> nodeList = new ArrayList<>(graph.getNodes(type));
 		
+		
+		
 		// queue defines the connected graph. If this queue is empty, every node in this graph will be visited.
 		// if nodeList is non-empty, insert the next node of nodeList into this queue
 		ArrayDeque<Node<FeatureType>> queue = new ArrayDeque<>();
+		Node<FeatureType> head;
 		
-
-
-		int score = 0;
-		boolean completed = true; // Is the feature completed? Is set to false if a node is visited that does not
-									// connect to any other tile
+		
+		// for every struct
+		while(!nodeList.isEmpty()) {
+			score = 0;
+		    completed = true; // Is the feature completed? Is set to false if a node is visited that does not
+										// connect to any other tile
+			HashMap<Player, Integer> meeples = new HashMap<Player, Integer>(); // owner of struct
+			
+			head = nodeList.get(0);
+			// fill queue
+			
+			queue.add(nodeList.get(0));
+			nodeList.remove(0);
+			
+			addedNode = true;
+			while (addedNode) {
+				// alle angrenzenden nodes in queue hinzufuegen
+				// und aus NodeList entfernen
+				addedNode = false;
+				
+				Tile tile;
+				for (Node<FeatureType> node : queue) {
+					
+					
+					
+					tile = getTileContainingNode((FeatureNode) node);
+					tile.getEdges().forEach(x -> {
+						
+					FeatureNode fNode = (FeatureNode) node;
+					
+					
+					
+						if(x.contains(node)) {
+							
+							if(!fNode.isConnectingTiles()) completed = false; // reicht nicht
+							
+							queue.add(x.getOtherNode(node));
+							nodeList.remove(x.getOtherNode(node));
+							addedNode = true;
+							if (fNode.hasMeeple())
+								meeples.put(fNode.getPlayer(), meeples.get(fNode.getPlayer()) +1);
+							score += 2; // fuer jede karte, nicht node (& was ist mit tile type H?)
+						}
+						
+					});
+					
+				}
+					
+			}
+			
+			if(completed) {
+				
+			}
+			
+		}
+		
+		
+		
+		
 
 		queue.push(nodeList.remove(0));
 		// Iterate as long as the queue is not empty
@@ -289,6 +351,24 @@ public class Gameboard extends Observable<Gameboard> {
 
 		//TODO
 	}
+	
+	
+	
+	
+	public Tile getTileOfNode(Node node) {
+			// zugehoeriges tile
+			Tile tile = null;
+			for (int x = 0; x < board.length; x++) {
+				for (int y = 0; y < board[0].length; y++) {
+					tile = board[x][y];
+					if (tile.containsNode((FeatureNode) node)) break;
+				}
+			}
+			
+		
+		return tile;
+	}
+	
 
 	/**
 	 * Returns all Tiles on the Gameboard.
