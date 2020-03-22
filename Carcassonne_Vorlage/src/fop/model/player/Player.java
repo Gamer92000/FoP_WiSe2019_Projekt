@@ -78,16 +78,9 @@ public class Player implements PlayerMethods{
 		}
 
 		if (tilePositions.isEmpty()) return;
-		tilePositions.forEach(p -> this.rateTile(tile, p));
+		tilePositions.forEach(RateableTilePosition::rate);
 		tilePositions.sort(Comparator.comparing(Rateable::getRating));
-		RateableTilePosition position = tilePositions.get(0);
-		gp.newTile(tile, position.getX(), position.getY());
-	}
-
-	private void rateTile(Tile tile, RateableTilePosition position) {
-		int middle = (144 / 2);
-		double distance = Math.sqrt(((middle - tile.x) * (middle - tile.x)) + ((middle - tile.y) * (middle - tile.y)));
-		position.setRating(distance);
+		gp.newTile(tile, tilePositions.get(0).getX(), tilePositions.get(0).getY());
 	}
 
 	public void placeMeeple(GamePlay gp) {
@@ -114,19 +107,10 @@ public class Player implements PlayerMethods{
 	}
 
 	private static class Rateable {
-
 		private double rating = 0;
 
 		public double getRating() {
 			return rating;
-		}
-
-		public void incrementRating() {
-			incrementRating(1);
-		}
-
-		public void incrementRating(int i) {
-			rating += i;
 		}
 
 		public void setRating(double rating) {
@@ -135,7 +119,6 @@ public class Player implements PlayerMethods{
 	}
 
 	private static class RateableTilePosition extends Rateable {
-
 		private int x, y;
 
 		public RateableTilePosition(int x, int y) {
@@ -150,10 +133,14 @@ public class Player implements PlayerMethods{
 		public int getY() {
 			return y;
 		}
+		
+		public void rate() {
+			double distance = Math.sqrt(Math.pow((72 - this.x), 2) + Math.pow((72 - this.y), 2));
+			this.setRating(distance);
+		}
 	}
 
 	private static class RateableMeeplePosition extends Rateable {
-
 		private Position position;
 
 		public RateableMeeplePosition(Position position) {
