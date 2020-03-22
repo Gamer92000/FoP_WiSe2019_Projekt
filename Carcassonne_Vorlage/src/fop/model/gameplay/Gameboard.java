@@ -12,9 +12,13 @@ import static fop.model.tile.Position.*;
 import fop.model.tile.Tile;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Gameboard extends Observable<Gameboard> {
 
@@ -244,14 +248,15 @@ public class Gameboard extends Observable<Gameboard> {
 	 */
 	
 	int maxMeeple;
+	List<List<FeatureNode>> completedCastleStructs = new ArrayList<List<FeatureNode>>();
 	
 	public void calculatePoints(State state) {
 		// Fields are only calculated on final scoring.
-		if (state == State.GAME_OVER)
-			calculatePoints(FIELDS, state);
-
+		completedCastleStructs.clear();
 		calculatePoints(CASTLE, state);
 		calculatePoints(ROAD, state);
+		if (state == State.GAME_OVER)
+			calculatePoints(FIELDS, state);
 		calculateMonasteries(state);
 	}
 
@@ -265,17 +270,27 @@ public class Gameboard extends Observable<Gameboard> {
 	 */
 	public void calculatePoints(FeatureType type, State state) {
 		List<Node<FeatureType>> nodeList = new ArrayList<>(graph.getNodes(type));
+		List<FeatureNode> fieldNodes = new ArrayList<FeatureNode>();
 		
+		System.out.println("alkmfslöm");
 		// queue defines the connected graph. If this queue is empty, every node in this graph will be visited.
 		// if nodeList is non-empty, insert the next node of nodeList into this queue
 		ArrayDeque<Node<FeatureType>> queue = new ArrayDeque<>();
+		
+		
 
 		// for each feature
 		while (!nodeList.isEmpty()) {
 			
 			int score = 0;
-			boolean completed = true; // Is the feature completed? Is set to false if a node is visited that does not
+			boolean completed = true, added = false; // Is the feature completed? Is set to false if a node is visited that does not
 									// connect to any other tile
+			
+			
+			if (type == CASTLE) {
+				//System.out.println("------------new Castle Struct----------------");
+				completedCastleStructs.add(new ArrayList<FeatureNode>());
+			}
 
 			queue.push(nodeList.remove(0));
 
@@ -290,9 +305,8 @@ public class Gameboard extends Observable<Gameboard> {
 				List<Node<FeatureType>> addToQueue = new ArrayList<Node<FeatureType>>();
 				for (Node<FeatureType> node : queue) {
 					
-					Tile tile = getTileContainingNode((FeatureNode) node); // again, no way this works
 					
-					List<Edge<FeatureType>> edges = tile.getEdges();
+					Tile tile = getTileContainingNode((FeatureNode) node); // again, no way this works // but in the end it totally works ;D
 					
 					// process current node
 					if (!tiles.contains(tile)) {
@@ -300,8 +314,21 @@ public class Gameboard extends Observable<Gameboard> {
 						if (tile.hasPennant())
 							pennants++;
 					}
+					
+					
+					
 					// look for meeple
 					FeatureNode fNode = (FeatureNode) node;
+					
+					if(type == FIELDS)
+						fieldNodes.add(fNode);
+					
+					
+					if(type == CASTLE && !completedCastleStructs.get(completedCastleStructs.size()-1).contains(fNode)) {
+						//System.out.println("~~~~~~~~~~~~~~new Tile~~~~~~~~~~~~~~~~" + fNode.getType());
+						completedCastleStructs.get(completedCastleStructs.size()-1).add(fNode);
+						added = true;
+					}
 					
 					if (tile.hasMeeple() && fNode == tile.getNodeAtPosition(tile.getMeeplePosition())) {
 						nodesWithMeeple.add(fNode);
@@ -333,6 +360,15 @@ public class Gameboard extends Observable<Gameboard> {
 				
 			}
 			
+			if(!completed && type == CASTLE && added) {
+				System.out.println("removed");
+				completedCastleStructs.remove(completedCastleStructs.size()-1);
+				//added = false;
+			}
+			
+			
+			
+			
 			if (completed && !meeples.isEmpty() && type != FIELDS) {
 				score = tiles.size();
 				if (type == CASTLE) {
@@ -362,10 +398,87 @@ public class Gameboard extends Observable<Gameboard> {
 					fNode.setPlayer(null);
 				}
 				
-			} else if (state == State.GAME_OVER) {
+			} else if (state == State.GAME_OVER && !meeples.isEmpty()) {
 				score = tiles.size();
+				
+				
+				
 				if (type == FIELDS) {
-					score /= 4;
+					
+					score = 0;
+					
+					List<List<FeatureNode>> lookingAt = new ArrayList<>();
+					lookingAt.addAll(completedCastleStructs);
+					
+					for(List<FeatureNode> l : completedCastleStructs) {
+						List<Tile> tile = l.stream().map( x -> getTileContainingNode(x)).distinct().collect(Collectors.toList());
+						System.out.println("größe der abgeschlossen burg: " + tile.size() + " Tiles");
+					}
+					
+					
+					
+					
+					//lookingAt.remove(lookingAt.size()-1);
+
+					List<List<FeatureNode>> nevv = lookingAt;
+					for (FeatureNode node : fieldNodes) {
+
+						Tile tile = getTileContainingNode(node);
+						
+						for (int i = 0; i < lookingAt.size(); i++) {
+							boolean removed = false;
+							
+							if (lookingAt.get(i).contains(tile.getNode(TOP))){
+								if (tile.getNode(CENTER) == node || tile.getNode(TOPLEFT) == node || tile.getNode(TOPRIGHT) == node){
+									score += 3;
+									
+									removed = true;
+								}
+							}
+							
+							
+							if (lookingAt.get(i).contains(tile.getNode(LEFT))){
+								if (tile.getNode(CENTER) == node || tile.getNode(TOPLEFT) == node || tile.getNode(BOTTOMLEFT) == node){
+									score += 3;
+									
+									removed = true;
+								}
+							}
+							
+							if (lookingAt.get(i).contains(tile.getNode(RIGHT))){
+								if (tile.getNode(CENTER) == node || tile.getNode(BOTTOMRIGHT) == node || tile.getNode(TOPRIGHT) == node){
+									score += 3;
+									
+									removed = true;
+								}
+							}
+							
+							if (lookingAt.get(i).contains(tile.getNode(BOTTOM))){
+								if (tile.getNode(CENTER) == node || tile.getNode(BOTTOMLEFT) == node || tile.getNode(BOTTOMRIGHT) == node){
+									score += 3;
+									
+									removed = true;
+								}
+							}
+							
+							if (lookingAt.get(i).contains(tile.getNode(CENTER))){
+								if (tile.getNode(TOP) == node || tile.getNode(TOPLEFT) == node || tile.getNode(TOPRIGHT) == node || tile.getNode(RIGHT) == node || tile.getNode(BOTTOMRIGHT) == node || tile.getNode(BOTTOM) == node
+										|| tile.getNode(BOTTOMLEFT) == node || tile.getNode(LEFT) == node){
+									score += 3;
+									
+									removed = true;
+								}
+							}
+							if (removed)  {
+								nevv.remove(lookingAt.get(i));
+							}
+							if(removed) i = 0;
+						}
+						
+						
+						//lookingAt = nevv;
+					}
+					
 				}
 				
 				List<Player> owners = new ArrayList<Player>();
@@ -380,6 +493,8 @@ public class Gameboard extends Observable<Gameboard> {
 						maxMeeple = y;
 					}
 				});
+				
+				System.out.println("score (type: " + type + "): " + score);
 				
 				for (Player p : owners)
 					p.addScore(score);
