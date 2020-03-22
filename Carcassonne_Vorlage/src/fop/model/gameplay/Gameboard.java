@@ -344,7 +344,7 @@ public class Gameboard extends Observable<Gameboard> {
 				maxMeeple = 0;
 				
 				meeples.forEach((x,y) -> {
-					System.out.println(y);
+					
 					if(y == maxMeeple)
 						owners.add(x);
 					if(y > maxMeeple){
