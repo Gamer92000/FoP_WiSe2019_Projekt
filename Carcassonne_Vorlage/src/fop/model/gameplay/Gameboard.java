@@ -272,7 +272,7 @@ public class Gameboard extends Observable<Gameboard> {
 		List<Node<FeatureType>> nodeList = new ArrayList<>(graph.getNodes(type));
 		List<FeatureNode> fieldNodes = new ArrayList<FeatureNode>();
 		
-		System.out.println("alkmfslöm");
+		
 		// queue defines the connected graph. If this queue is empty, every node in this graph will be visited.
 		// if nodeList is non-empty, insert the next node of nodeList into this queue
 		ArrayDeque<Node<FeatureType>> queue = new ArrayDeque<>();
@@ -288,7 +288,7 @@ public class Gameboard extends Observable<Gameboard> {
 			
 			
 			if (type == CASTLE) {
-				//System.out.println("------------new Castle Struct----------------");
+				
 				completedCastleStructs.add(new ArrayList<FeatureNode>());
 			}
 
@@ -325,7 +325,7 @@ public class Gameboard extends Observable<Gameboard> {
 					
 					
 					if(type == CASTLE && !completedCastleStructs.get(completedCastleStructs.size()-1).contains(fNode)) {
-						//System.out.println("~~~~~~~~~~~~~~new Tile~~~~~~~~~~~~~~~~" + fNode.getType());
+						
 						completedCastleStructs.get(completedCastleStructs.size()-1).add(fNode);
 						added = true;
 					}
@@ -360,11 +360,9 @@ public class Gameboard extends Observable<Gameboard> {
 				
 			}
 			
-			if(!completed && type == CASTLE && added) {
-				System.out.println("removed");
+			if(!completed && type == CASTLE && added) 
 				completedCastleStructs.remove(completedCastleStructs.size()-1);
-				//added = false;
-			}
+			
 			
 			
 			
@@ -409,14 +407,6 @@ public class Gameboard extends Observable<Gameboard> {
 					
 					List<List<FeatureNode>> lookingAt = new ArrayList<>();
 					lookingAt.addAll(completedCastleStructs);
-					
-					for(List<FeatureNode> l : completedCastleStructs) {
-						List<Tile> tile = l.stream().map( x -> getTileContainingNode(x)).distinct().collect(Collectors.toList());
-						System.out.println("größe der abgeschlossen burg: " + tile.size() + " Tiles");
-					}
-					
-					
-					
 					
 					//lookingAt.remove(lookingAt.size()-1);
 
@@ -472,11 +462,8 @@ public class Gameboard extends Observable<Gameboard> {
 							if (removed)  {
 								nevv.remove(lookingAt.get(i));
 							}
-							if(removed) i = 0;
+							if(removed) i--;
 						}
-						
-						
-						//lookingAt = nevv;
 					}
 					
 				}
@@ -494,7 +481,7 @@ public class Gameboard extends Observable<Gameboard> {
 					}
 				});
 				
-				System.out.println("score (type: " + type + "): " + score);
+				//System.out.println("score (type: " + type + "): " + score);
 				
 				for (Player p : owners)
 					p.addScore(score);
