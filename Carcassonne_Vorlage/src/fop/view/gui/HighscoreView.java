@@ -51,7 +51,7 @@ public class HighscoreView extends View {
 	protected void onInit() {
 		btnBack = createButton("Back");
 		btnClear = createButton("Delete");
-		lblTitle = createLabel("Highscores", 45, true);
+		lblTitle = createLabel("Highscores", 25, true);
 
 		Resources resources = Resources.getInstance();
 
@@ -83,6 +83,7 @@ public class HighscoreView extends View {
 		scoreTable.setRowHeight(ugly ? 25 : 22);
 		if (ugly) scoreTable.setFont(resources.getCelticFont());
 		if (ugly) scoreTable.getTableHeader().setFont(resources.getCelticFont());
+		if (ugly) lblTitle.setFont(resources.getCelticFont());
 		
 		scoreTable.getTableHeader().setBorder(border);
 		scoreTable.getTableHeader().setReorderingAllowed(false);

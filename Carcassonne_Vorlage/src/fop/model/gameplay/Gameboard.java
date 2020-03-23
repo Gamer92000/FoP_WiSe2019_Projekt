@@ -26,6 +26,7 @@ public class Gameboard extends Observable<Gameboard> {
 	private List<Tile> tiles;
 	private FeatureGraph graph;
 	private Tile newestTile;
+	private HashMap<Player, Integer> besetzteBurgen = new HashMap<>();
 	
 
 	public Gameboard() {
@@ -388,8 +389,17 @@ public class Gameboard extends Observable<Gameboard> {
 					}
 				});
 				
-				for (Player p : owners)
+				for (Player p : owners) {
 					p.addScore(score);
+					if(type == CASTLE) {
+					if(!besetzteBurgen.containsKey(p))
+						besetzteBurgen.put(p, 1);
+					else {
+						besetzteBurgen.put(p, besetzteBurgen.get(p) + 1);
+					}
+				}
+						
+				}
 				
 				for (FeatureNode fNode : nodesWithMeeple) {
 					fNode.getPlayer().returnMeeple();
@@ -490,6 +500,32 @@ public class Gameboard extends Observable<Gameboard> {
 			
 		}
 	}
+	
+	
+	
+	public HashMap<Player, Integer> getInfoMission1() {
+		System.out.println("size:");
+		return besetzteBurgen;
+	}
+	
+	
+	private int first=0, second=0;
+	public boolean isThreeAhead(HashMap<Player, Integer> list) {
+		first = 0;
+		second = 0;
+		list.forEach((x, y) -> {
+			if(y > first) {
+				second = first;
+				first = y;
+			} else if (y > second){
+				second = y;
+			}
+		});
+		System.out.println("unterschied: " + (first - second));
+		if(first - second >= 3)
+			return true;
+		return false;
+		}
 
 	/**
 	 * Returns all Tiles on the Gameboard.

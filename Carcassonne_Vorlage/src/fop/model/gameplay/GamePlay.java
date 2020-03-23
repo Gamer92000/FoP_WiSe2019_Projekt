@@ -58,13 +58,21 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 	public void nextRound() {
 		if(!currentPlayer().getName().equals("AI"))
 			gc.getGameBoardPanel().removeTempMeepleOverlay();
-		if (gc.getTileStack().remainingTiles() == 0)
+		
+		if (gc.getTileStack().remainingTiles() == 0) {
 			gc.setState(State.GAME_OVER);
+		} 
 		else {
 			gc.getGameBoard().calculatePoints(gc.getState());
-			gc.getGameBoard().push(gc.getGameBoard());
-			gc.incrementRound();
-			gc.setState(State.PLACING_TILE);
+			
+			if(gc.getGameBoard().isThreeAhead(gc.getGameBoard().getInfoMission1())) {
+				gc.setState(State.GAME_OVER);
+				System.out.println("3 BURGEN MEHR!!!");
+			}else {
+				gc.getGameBoard().push(gc.getGameBoard());
+				gc.incrementRound();
+				gc.setState(State.PLACING_TILE);
+			}
 		}
 	}
 
