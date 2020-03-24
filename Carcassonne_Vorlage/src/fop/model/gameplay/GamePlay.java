@@ -65,9 +65,9 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 		else {
 			gc.getGameBoard().calculatePoints(gc.getState());
 			
-			if(gc.getGameBoard().isThreeAhead(gc.getGameBoard().getInfoMission1())) {
+			if(gc.getGameBoard().isThreeAhead(gc.getGameBoard().getInfoMission1()) || gc.getGameBoard().getWinnerMission2() != null) {
 				gc.setState(State.GAME_OVER);
-				System.out.println("3 BURGEN MEHR!!!");
+				System.out.println("EineMissionWurdeGeschafft");
 			}else {
 				gc.getGameBoard().push(gc.getGameBoard());
 				gc.incrementRound();
@@ -194,6 +194,17 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 		gc.getGameView().setStatusbarPanel(MessagesConstants.getWinnersMessage(getWinners(gc.getPlayers())), WINNING_MESSAGE_COLOR);
 
 		MessagesConstants.showBurgenPoints(gc.getGameBoard().getInfoMission1());
+		GameMethods.GoToMainMenu();
+	}
+	
+	public void missionTwoCompleted() {
+		gc.getGameBoard().calculatePoints(gc.getState());
+		gc.getGameBoard().push(gc.getGameBoard());
+		push(gc.getPlayers());
+		gc.getGameView().getToolbarPanel().showSkipButton(false);
+		gc.getGameView().setStatusbarPanel(MessagesConstants.getWinnersMessage(getWinners(gc.getPlayers())), WINNING_MESSAGE_COLOR);
+
+		MessagesConstants.showWinnerMissionTwo(gc.getGameBoard().getWinnerMission2());
 		GameMethods.GoToMainMenu();
 	}
 

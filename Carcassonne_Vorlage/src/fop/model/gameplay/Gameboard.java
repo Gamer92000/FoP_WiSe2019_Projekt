@@ -204,6 +204,9 @@ public class Gameboard extends Observable<Gameboard> {
 		// no valid position was found
 		return false;
 	}
+	
+	
+	HashMap<Player, Integer> kloster = new HashMap<Player, Integer>();
 
 	/**
 	 * Calculates points for monasteries (one point for the monastery and one for
@@ -230,13 +233,19 @@ public class Gameboard extends Observable<Gameboard> {
 							if (x+i < 0 || y+j < 0 || x+i >= 144 || y+j >= 144) continue;
 							adj += board[x+i][y+j] != null ? 1 : 0;
 						}
-					if (state == State.GAME_OVER || adj == 9) {
+					if (state == State.GAME_OVER) {
 						tile.getMeeple().addScore(adj);
-						if (state != State.GAME_OVER) {
-							tile.getMeeple().returnMeeple();
-							tile.getNode(tile.getMeeplePosition()).setPlayer(null);
+					} else if (adj == 9) {
+						if(!kloster.containsKey(tile.getMeeple()))
+							kloster.put(tile.getMeeple(), 1);
+						else {
+							kloster.put(tile.getMeeple(), kloster.get(tile.getMeeple()) + 1);
 						}
+						tile.getMeeple().addScore(adj);
+						tile.getMeeple().returnMeeple();
+						tile.getNode(tile.getMeeplePosition()).setPlayer(null);
 					}
+					
 				}
 			}
 	}
@@ -357,8 +366,7 @@ public class Gameboard extends Observable<Gameboard> {
 				
 				queue.addAll(addToQueue);
 				
-				
-				
+								
 			}
 			
 			if(!completed && type == CASTLE && added) 
@@ -502,9 +510,20 @@ public class Gameboard extends Observable<Gameboard> {
 	}
 	
 	
+	/**
+	 * returns winner else null
+	 */
+	Player w = null;
+	public Player getWinnerMission2() {
+		w = null;
+		//System.out.println(kloster.size());
+		kloster.forEach((x,y) -> {w = (y >= 2) ? x : null;});
+		return w;
+	}
+	
+	
 	
 	public HashMap<Player, Integer> getInfoMission1() {
-		System.out.println("size:");
 		return besetzteBurgen;
 	}
 	
@@ -521,7 +540,7 @@ public class Gameboard extends Observable<Gameboard> {
 				second = y;
 			}
 		});
-		System.out.println("unterschied: " + (first - second));
+		//System.out.println("unterschied: " + (first - second));
 		if(first - second >= 3)
 			return true;
 		return false;

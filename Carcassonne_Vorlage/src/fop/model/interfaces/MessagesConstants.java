@@ -70,7 +70,7 @@ public interface MessagesConstants {
 		        winner = entry;
 		
 		
-		String message = "Der Gewinner ist " + winner.getKey().getName() + "  Punkte:" + winner.getKey().getScore() + "  Burgen:" + winner.getValue();
+		String message = "Der Gewinner ist " + winner.getKey().getName() + "  Punkte:" + winner.getKey().getScore() + "  Burgen:" + winner.getValue() + "\n";
 		int m = winner.getValue();
 		StringBuilder strg = new StringBuilder();
 		
@@ -85,8 +85,14 @@ public interface MessagesConstants {
 		
 		JOptionPane.showMessageDialog(null, list, null,
 				JOptionPane.CLOSED_OPTION);
+	}
+	
+	public static void showWinnerMissionTwo(Player p) {
 		
+		String message = "Der Spieler " + p.getName() + " hat gewonnen, da er die göttliche Fügung besitzt!";
 		
+		JOptionPane.showMessageDialog(null, message, null,
+				JOptionPane.CLOSED_OPTION);
 	}
 	
 	/**
