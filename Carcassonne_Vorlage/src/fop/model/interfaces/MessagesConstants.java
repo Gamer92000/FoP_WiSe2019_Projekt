@@ -1,5 +1,6 @@
 package fop.model.interfaces;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,6 +54,39 @@ public interface MessagesConstants {
 						JOptionPane.CLOSED_OPTION);
 			
 		}
+	}
+	
+	/**
+	 * creates winner message of mission1
+	 * @param p
+	 */
+	
+	
+	public static void showBurgenPoints(HashMap<Player, Integer> p) {
+		
+		HashMap.Entry<Player, Integer> winner = null;
+		for(HashMap.Entry<Player, Integer> entry : p.entrySet()) 
+			if (winner == null || entry.getValue().compareTo(winner.getValue()) > 0)
+		        winner = entry;
+		
+		
+		String message = "Der Gewinner ist " + winner.getKey().getName() + "  Punkte:" + winner.getKey().getScore() + "  Burgen:" + winner.getValue();
+		int m = winner.getValue();
+		StringBuilder strg = new StringBuilder();
+		
+		strg.append(message);
+		p.forEach((x, y) -> {
+			if (y != m)
+			strg.append("\n" + x.getName() + "   Punkte: " + x.getScore() + " Burgen: " + y);
+		});
+		
+		String list = strg.toString();
+		
+		
+		JOptionPane.showMessageDialog(null, list, null,
+				JOptionPane.CLOSED_OPTION);
+		
+		
 	}
 	
 	/**

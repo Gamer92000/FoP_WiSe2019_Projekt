@@ -101,6 +101,9 @@ public class GameController implements GameControllerMethods {
 			break;
 
 		case GAME_OVER:
+			if (board.isThreeAhead(board.getInfoMission1()))
+				gameplay.missionOneCompleted();
+			else
 			gameplay.game_Over_Mode();
 			break;
 		default:

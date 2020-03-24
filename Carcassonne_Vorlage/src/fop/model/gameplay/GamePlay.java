@@ -185,6 +185,17 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 		MessagesConstants.showWinner(getWinners(gc.getPlayers()));
 		GameMethods.GoToMainMenu();
 	}
+	
+	public void missionOneCompleted() {
+		gc.getGameBoard().calculatePoints(gc.getState());
+		gc.getGameBoard().push(gc.getGameBoard());
+		push(gc.getPlayers());
+		gc.getGameView().getToolbarPanel().showSkipButton(false);
+		gc.getGameView().setStatusbarPanel(MessagesConstants.getWinnersMessage(getWinners(gc.getPlayers())), WINNING_MESSAGE_COLOR);
+
+		MessagesConstants.showBurgenPoints(gc.getGameBoard().getInfoMission1());
+		GameMethods.GoToMainMenu();
+	}
 
 	
 	@Override
