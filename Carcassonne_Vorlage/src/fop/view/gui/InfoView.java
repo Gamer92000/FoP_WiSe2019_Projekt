@@ -20,6 +20,8 @@ public class InfoView extends View {
 
 	private static final String ABOUT_TEXT = "~ Carcassone ~\nFOP-Projekt WiSe 19/20";
 
+	private static final String t = "\n Regeln: Guck in die Wiki \n Missionen: \n Mission 1: Besitze 3 Burgen mehr als alle anderen Spieler \n Mission 2: Schaffe es 2 Kloster zu besitzen";
+	
 	private JButton btnBack;
 	private JTextPane txtInfo;
 	private JLabel lblTitle;
@@ -47,7 +49,7 @@ public class InfoView extends View {
 		btnBack = createButton("Back");
 		lblTitle = createLabel("About", 25, true);
 		txtInfo = createTextPane();
-		txtInfo.setText(ABOUT_TEXT);
+		txtInfo.setText(ABOUT_TEXT + t);
 		txtInfo.setBorder(null);
 		txtInfo.setBackground(this.getBackground());
 		add(txtInfo);
