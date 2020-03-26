@@ -67,7 +67,6 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 			
 			if(gc.getGameBoard().isThreeAhead(gc.getGameBoard().getInfoMission1()) || gc.getGameBoard().getWinnerMission2() != null) {
 				gc.setState(State.GAME_OVER);
-				System.out.println("EineMissionWurdeGeschafft");
 			}else {
 				gc.getGameBoard().push(gc.getGameBoard());
 				gc.incrementRound();

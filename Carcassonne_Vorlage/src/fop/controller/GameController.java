@@ -102,11 +102,9 @@ public class GameController implements GameControllerMethods {
 
 		case GAME_OVER:
 			if (board.isThreeAhead(board.getInfoMission1())) {
-				//System.out.println("die 1");
 				gameplay.missionOneCompleted();
 			}
 			else if(board.getWinnerMission2() != null) {
-				//System.out.println("die 2");
 				gameplay.missionTwoCompleted();
 				
 			} else 
