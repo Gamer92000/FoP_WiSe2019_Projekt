@@ -21,6 +21,8 @@ import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.plaf.ButtonUI;
+import javax.swing.plaf.metal.MetalToggleButtonUI;
 
 import fop.model.interfaces.GameConstants;
 import fop.view.components.gui.Resources;
@@ -111,6 +113,12 @@ public abstract class View extends Container implements ActionListener, GameCons
 		button.setBackground(BUTTON_BACKGROUND_Color);
 		button.setFont(gameWindow.getResources().getCelticFont());
 		button.setSelected(true);
+		button.setUI(new MetalToggleButtonUI() {
+		    @Override
+		    protected Color getSelectColor() {
+		        return Color.RED;
+		    }
+		});
 		this.add(button);
 		return button;
 	}
