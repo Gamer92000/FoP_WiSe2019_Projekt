@@ -16,6 +16,7 @@ import fop.model.player.MeepleColor;
  * this class  creates am JComboBox with the available MeepleColors 
  * The background colors are set via the JComboBoxRenderer class 
  */
+@SuppressWarnings("serial")
 public class ColorChooserComboBox extends JComboBox<String> {
 	private JComboBox<String> box = new JComboBox<String>();
 	private JComboBoxRenderer<String> renderer;
@@ -27,7 +28,7 @@ public class ColorChooserComboBox extends JComboBox<String> {
 		
 		box.setBackground(MeepleColor.availableMeepleColors[0]);
 		//Creates the item
-		for (Color color : MeepleColor.availableMeepleColors) {
+		for (@SuppressWarnings("unused") Color color : MeepleColor.availableMeepleColors) {
 			box.addItem("");
 		}
 		//sets the Color
@@ -50,6 +51,7 @@ public class ColorChooserComboBox extends JComboBox<String> {
  *
  * @param <String>
  */
+@SuppressWarnings({ "hiding", "serial" })
 class JComboBoxRenderer<String> extends JPanel implements ListCellRenderer<String>
 {
 
@@ -75,7 +77,7 @@ class JComboBoxRenderer<String> extends JPanel implements ListCellRenderer<Strin
         panel.add(label);
     }
     @Override
-    public Component getListCellRendererComponent(JList list, Object value,
+    public Component getListCellRendererComponent(@SuppressWarnings("rawtypes") JList list, Object value,
             int index, boolean isSelected, boolean cellHasFocus) {
 
         if (index>-1) {

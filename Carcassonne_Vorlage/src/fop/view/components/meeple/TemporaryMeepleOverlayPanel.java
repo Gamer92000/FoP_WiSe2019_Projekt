@@ -7,6 +7,7 @@ import fop.model.tile.Position;
  * This class creates a TempoaryMeepleOverlayPanel, were all the possible Meeples are shown
  *
  */
+@SuppressWarnings("serial")
 public class TemporaryMeepleOverlayPanel extends MeepleOverlayPanel {
 
 	public TemporaryMeepleOverlayPanel(boolean[] meepleSpots, int size, Player player) {

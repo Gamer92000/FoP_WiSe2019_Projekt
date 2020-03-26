@@ -18,6 +18,7 @@ import fop.model.tile.Position;
  * of the MeepleOverlayPanel to get the spacing right.
  *
  */
+@SuppressWarnings("serial")
 public class TemporaryMeeplePanel extends MeeplePanel implements GameConstants{
 
 	/**

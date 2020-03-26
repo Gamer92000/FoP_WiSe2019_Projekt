@@ -14,6 +14,7 @@ import fop.view.components.View;
  * StartScreen Area
  *
  */
+@SuppressWarnings("serial")
 public class StartScreen extends View {
 
     private JButton btnStart, btnStats, btnInfo, btnQuit;

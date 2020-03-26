@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import fop.model.player.Player;
 import fop.model.tile.Position;
 
+@SuppressWarnings("serial")
 public class MeepleOverlayPanel extends JLabel {
 
 	/**

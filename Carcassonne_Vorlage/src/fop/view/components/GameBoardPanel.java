@@ -30,6 +30,7 @@ import fop.view.components.meeple.TemporaryMeepleOverlayPanel;
 import fop.view.components.meeple.TemporaryMeeplePanel;
 import fop.view.components.tile.TilePanel;
 
+@SuppressWarnings("serial")
 public class GameBoardPanel extends JPanel implements Observer<Gameboard> {
 
 	/**

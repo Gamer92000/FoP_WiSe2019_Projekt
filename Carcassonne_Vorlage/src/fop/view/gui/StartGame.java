@@ -10,7 +10,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
-import javax.swing.JToggleButton.ToggleButtonModel;
 
 import fop.controller.GameController;
 import fop.model.gameplay.State;
@@ -22,13 +21,13 @@ import fop.model.player.Players;
 import fop.view.components.View;
 import fop.view.components.gui.ColorChooserComboBox;
 import fop.view.components.gui.NumberChooser;
-import fop.model.interfaces.*;
 
 
 /**
  * StartGame Area, sets all the necessary data for the game
  *
  */
+@SuppressWarnings("serial")
 public class StartGame extends View implements GameConstants{
 
 	private JLabel lblTitle;
@@ -164,6 +163,7 @@ public class StartGame extends View implements GameConstants{
 						return;
 					}
 
+					@SuppressWarnings("unchecked")
 					Color color1 = ((JComboBox<String>) playerConfig[i][1]).getBackground(); 
 					MeepleColor color = MeepleColor.toMeepleColor(color1);
 					Player currentPlayer = new Player(name, color);

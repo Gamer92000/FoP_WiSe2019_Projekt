@@ -20,6 +20,7 @@ import fop.model.tile.Position;
  * 
  *
  */
+@SuppressWarnings("serial")
 public class MeeplePanel extends JPanel implements GameConstants {
 
 	protected BufferedImage meepleImage;

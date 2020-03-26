@@ -16,6 +16,7 @@ import fop.view.components.View;
  * Info Area
  *
  */
+@SuppressWarnings("serial")
 public class InfoView extends View {
 
 	private static final String ABOUT_TEXT = "~ Carcassone ~\nFOP-Projekt WiSe 19/20";

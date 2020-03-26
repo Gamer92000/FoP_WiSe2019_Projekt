@@ -17,6 +17,7 @@ import fop.model.tile.TileType;
  * This class creates a Tile
  *
  */
+@SuppressWarnings("serial")
 public class TilePanel extends JPanel implements GameConstants{
 
 	private BufferedImage tileImage;

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import fop.model.interfaces.Observer;
 import fop.model.tile.TileStack;
 
+@SuppressWarnings("serial")
 public class TileStackPanel extends JPanel implements Observer<TileStack> {
 	private TilePanel topTile;
 	private JLabel tileCounter;

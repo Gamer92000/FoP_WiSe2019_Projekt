@@ -20,6 +20,7 @@ import fop.view.components.View;
  * This class handles the number of which will be set in the StartGame Area
  *
  */
+@SuppressWarnings("serial")
 public class NumberChooser extends JComponent implements MouseListener, GameConstants {
 
 	private int min, max, value;
