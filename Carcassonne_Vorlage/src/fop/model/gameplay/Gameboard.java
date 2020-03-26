@@ -298,7 +298,6 @@ public class Gameboard extends Observable<Gameboard> {
 			
 			
 			if (type == CASTLE) {
-				
 				completedCastleStructs.add(new ArrayList<FeatureNode>());
 			}
 
@@ -325,16 +324,14 @@ public class Gameboard extends Observable<Gameboard> {
 							pennants++;
 					}
 					
-					
-					
 					// look for meeple
 					FeatureNode fNode = (FeatureNode) node;
 					
-					if(type == FIELDS)
+					if (type == FIELDS)
 						fieldNodes.add(fNode);
 					
 					
-					if(type == CASTLE && !completedCastleStructs.get(completedCastleStructs.size()-1).contains(fNode)) {
+					if (type == CASTLE && !completedCastleStructs.get(completedCastleStructs.size()-1).contains(fNode)) {
 						
 						completedCastleStructs.get(completedCastleStructs.size()-1).add(fNode);
 						added = true;
@@ -342,91 +339,91 @@ public class Gameboard extends Observable<Gameboard> {
 					
 					if (tile.hasMeeple() && fNode == tile.getNodeAtPosition(tile.getMeeplePosition())) {
 						nodesWithMeeple.add(fNode);
-						if(!meeples.containsKey(tile.getMeeple()))
+						if (!meeples.containsKey(tile.getMeeple()))
 							meeples.put(tile.getMeeple(), 1);
 						else {
 							meeples.put(tile.getMeeple(), meeples.get(tile.getMeeple()) + 1);
 						}
 					}
-					// look for completed
 					
+					// look for completed
 					if(tile.getNodeAtPosition(CENTER) != fNode && !fNode.isConnectingTiles())
 						completed = false;
 					
-					
-					queue.remove(node);
-					
-					// nodes connecting tiles
+					// add connected nodes
 					for (Edge<FeatureType> edge : graph.getEdges(node)) {
 						Node<FeatureType> otherNode = edge.getOtherNode(node);
 						if (nodeList.remove(otherNode)) // only add if not processed yet
 							addToQueue.add(otherNode);
 					}
+					
+					// dequeue processed node
+					queue.remove(node);
 				}
 				
 				queue.addAll(addToQueue);
 				
-								
 			}
 			
-			if(!completed && type == CASTLE && added) 
+			if (type == CASTLE && added && !completed) 
 				completedCastleStructs.remove(completedCastleStructs.size()-1);
 			
 			
-			
-			
-			
 			if (completed && !meeples.isEmpty() && type != FIELDS) {
+				// score depending on type
 				score = tiles.size();
+				
 				if (type == CASTLE) {
 					score *= 2;
 					score += pennants*2;
 				}
 				
+				// determine owner
 				List<Player> owners = new ArrayList<Player>();
 				maxMeeple = 0;
 				
 				meeples.forEach((x,y) -> {
 					
-					if(y == maxMeeple)
+					if (y == maxMeeple)
 						owners.add(x);
-					if(y > maxMeeple){
+					if (y > maxMeeple){
 						owners.clear();
 						owners.add(x);
 						maxMeeple = y;
 					}
 				});
 				
+				// add score, (mission 1)
 				for (Player p : owners) {
 					p.addScore(score);
-					if(type == CASTLE) {
-					if(!besetzteBurgen.containsKey(p))
-						besetzteBurgen.put(p, 1);
-					else {
-						besetzteBurgen.put(p, besetzteBurgen.get(p) + 1);
+					if (type == CASTLE) {
+						if (!besetzteBurgen.containsKey(p))
+							besetzteBurgen.put(p, 1);
+						else
+							besetzteBurgen.put(p, besetzteBurgen.get(p) + 1);
 					}
 				}
-						
-				}
 				
+				// return meeples
 				for (FeatureNode fNode : nodesWithMeeple) {
 					fNode.getPlayer().returnMeeple();
 					fNode.setPlayer(null);
 				}
 				
 			} else if (state == State.GAME_OVER && !meeples.isEmpty()) {
+				// score depending on type
 				score = tiles.size();
 				
+				if (type == CASTLE)
+					score += pennants;
 				
-				
+				// special case fields
 				if (type == FIELDS) {
 					
 					score = 0;
 					
 					List<List<FeatureNode>> lookingAt = new ArrayList<>();
 					lookingAt.addAll(completedCastleStructs);
-					
-					//lookingAt.remove(lookingAt.size()-1);
 
 					List<List<FeatureNode>> nevv = lookingAt;
 					for (FeatureNode node : fieldNodes) {
@@ -477,15 +474,18 @@ public class Gameboard extends Observable<Gameboard> {
 									removed = true;
 								}
 							}
-							if (removed)  {
+							
+							if (removed)
 								nevv.remove(lookingAt.get(i));
-							}
-							if(removed) i--;
+							
+							if (removed)
+								i--;
 						}
 					}
 					
 				}
 				
+				// owner of feature
 				List<Player> owners = new ArrayList<Player>();
 				maxMeeple = 0;
 				
@@ -499,8 +499,7 @@ public class Gameboard extends Observable<Gameboard> {
 					}
 				});
 				
-				//System.out.println("score (type: " + type + "): " + score);
-				
+				// add score
 				for (Player p : owners)
 					p.addScore(score);
 				
@@ -516,7 +515,6 @@ public class Gameboard extends Observable<Gameboard> {
 	Player w = null;
 	public Player getWinnerMission2() {
 		w = null;
-		//System.out.println(kloster.size());
 		kloster.forEach((x,y) -> {w = (y >= 2) ? x : null;});
 		return w;
 	}
@@ -540,7 +538,6 @@ public class Gameboard extends Observable<Gameboard> {
 				second = y;
 			}
 		});
-		//System.out.println("unterschied: " + (first - second));
 		if(first - second >= 3)
 			return true;
 		return false;
