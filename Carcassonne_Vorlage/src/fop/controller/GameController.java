@@ -103,8 +103,9 @@ public class GameController implements GameControllerMethods {
 			break;
 
 		case GAME_OVER:
-			if (getMission1() && board.isThreeAhead(board.getInfoMission1())) {
-				gameplay.missionOneCompleted();
+			Player winner = board.isThreeAhead(board.getInfoMission1());
+			if (getMission1() && winner != null) {
+				gameplay.missionOneCompleted(winner);
 			}
 			else if(getMission2() && board.getWinnerMission2() != null) {
 				gameplay.missionTwoCompleted();

@@ -499,22 +499,26 @@ public class Gameboard extends Observable<Gameboard> {
 		return besetzteBurgen;
 	}
 	
-	
+	Player firstPlayer;
 	private int first=0, second=0;
-	public boolean isThreeAhead(HashMap<Player, Integer> list) {
+	public Player isThreeAhead(HashMap<Player, Integer> list) {
 		first = 0;
 		second = 0;
+
+		firstPlayer = null;
+
 		list.forEach((x, y) -> {
 			if(y > first) {
 				second = first;
 				first = y;
+				firstPlayer = x;
 			} else if (y > second){
 				second = y;
 			}
 		});
 		if(first - second >= 3)
-			return true;
-		return false;
+			return firstPlayer;
+		return null;
 		}
 
 	/**

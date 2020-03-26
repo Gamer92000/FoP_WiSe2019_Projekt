@@ -1,5 +1,6 @@
 package fop.model.gameplay;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 		else {
 			gc.getGameBoard().calculatePoints(gc.getState());
 			
-			if( (gc.getMission1() && gc.getGameBoard().isThreeAhead(gc.getGameBoard().getInfoMission1()))  || (gc.getMission2() && gc.getGameBoard().getWinnerMission2() != null)) {
+			if( (gc.getMission1() && gc.getGameBoard().isThreeAhead(gc.getGameBoard().getInfoMission1()) != null)  || (gc.getMission2() && gc.getGameBoard().getWinnerMission2() != null)) {
 				gc.setState(State.GAME_OVER);
 				
 			}else {
@@ -186,12 +187,14 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 		GameMethods.GoToMainMenu();
 	}
 	
-	public void missionOneCompleted() {
+	public void missionOneCompleted(Player winner) {
 		gc.getGameBoard().calculatePoints(gc.getState());
 		gc.getGameBoard().push(gc.getGameBoard());
 		push(gc.getPlayers());
 		gc.getGameView().getToolbarPanel().showSkipButton(false);
-		gc.getGameView().setStatusbarPanel(MessagesConstants.getWinnersMessage(getWinners(gc.getPlayers())), WINNING_MESSAGE_COLOR);
+		ArrayList<Player> winnerList = new ArrayList<Player>();
+		winnerList.add(winner);
+		gc.getGameView().setStatusbarPanel(MessagesConstants.getWinnersMessage(winnerList), WINNING_MESSAGE_COLOR);
 
 		MessagesConstants.showBurgenPoints(gc.getGameBoard().getInfoMission1());
 		GameMethods.GoToMainMenu();
