@@ -82,7 +82,7 @@ public class Gameboard extends Observable<Gameboard> {
 			if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
 				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
 		}
-
+		x1 = x+1; y1 = y;
 		a  = RIGHT;       b  = LEFT;
 		a1 = TOPRIGHT;    b1 = TOPLEFT;
 		a2 = BOTTOMRIGHT; b2 = BOTTOMLEFT;
@@ -93,7 +93,7 @@ public class Gameboard extends Observable<Gameboard> {
 			if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
 				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
 		}
-
+		x1 = x; y1 = y-1;
 		a  = TOP;      b  = BOTTOM;
 		a1 = TOPLEFT;  b1 = BOTTOMLEFT;
 		a2 = TOPRIGHT; b2 = BOTTOMRIGHT;
