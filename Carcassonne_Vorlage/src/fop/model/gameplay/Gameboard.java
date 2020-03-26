@@ -12,13 +12,9 @@ import static fop.model.tile.Position.*;
 import fop.model.tile.Tile;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Gameboard extends Observable<Gameboard> {
 
@@ -63,15 +59,6 @@ public class Gameboard extends Observable<Gameboard> {
 		graph.addAllEdges(board[x][y].getEdges());
 
 		Tile t = board[x][y];
-
-		// TODO
-			// This might be helpful:
-			// As we already ensured that the tile on top exists and fits the tile at x, y,
-			// we know that if the feature of its top is a ROAD, the feature at the bottom
-			// of the tile on top is a ROAD aswell. As every ROAD has FIELD nodes as
-			// neighbours on both sides, we can connect those nodes of the two tiles. The
-			// same logic applies to the next three routines.
-		// Check bottom tile
 		int x1 = x; int y1 = y+1;
 		Position a  = BOTTOM;      Position b  = TOP;
 		Position a1 = BOTTOMLEFT;  Position b1 = TOPLEFT;
@@ -84,9 +71,6 @@ public class Gameboard extends Observable<Gameboard> {
 				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
 		}
 
-
-		// Check left tile
-		// TODO
 		x1 = x-1; y1 = y;
 		a  = LEFT;       b  = RIGHT;
 		a1 = TOPLEFT;    b1 = TOPRIGHT;
@@ -99,9 +83,6 @@ public class Gameboard extends Observable<Gameboard> {
 				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
 		}
 
-		// Check right tile
-		// TODO
-		x1 = x+1; y1 = y;
 		a  = RIGHT;       b  = LEFT;
 		a1 = TOPRIGHT;    b1 = TOPLEFT;
 		a2 = BOTTOMRIGHT; b2 = BOTTOMLEFT;
@@ -113,9 +94,6 @@ public class Gameboard extends Observable<Gameboard> {
 				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
 		}
 
-		// Check top tile
-		// TODO
-		x1 = x; y1 = y-1;
 		a  = TOP;      b  = BOTTOM;
 		a1 = TOPLEFT;  b1 = BOTTOMLEFT;
 		a2 = TOPRIGHT; b2 = BOTTOMRIGHT;
@@ -173,28 +151,24 @@ public class Gameboard extends Observable<Gameboard> {
 		// Iterate over all tiles
 		for(Tile t : tiles) {
 			// check top
-			// TODO
 			if(!t.getNode(TOP).isConnectingTiles()) for(int j = 0; j < 4; j++) {
 				if(isTileAllowed(newTile, t.x, t.y-1)) return true;
 				newTile.rotateRight();
 			}
 
 			// check left
-			// TODO
 			if(!t.getNode(LEFT).isConnectingTiles()) for(int j = 0; j < 4; j++) {
 				if(isTileAllowed(newTile, t.x-1, t.y)) return true;
 				newTile.rotateRight();
 			}
 
 			// check right
-			// TODO
 			if(!t.getNode(RIGHT).isConnectingTiles()) for(int j = 0; j < 4; j++) {
 				if(isTileAllowed(newTile, t.x+1, t.y)) return true;
 				newTile.rotateRight();
 			}
 
 			// check bottom
-			// TODO
 			if(!t.getNode(BOTTOM).isConnectingTiles()) for(int j = 0; j < 4; j++) {
 				if(isTileAllowed(newTile, t.x, t.y+1)) return true;
 				newTile.rotateRight();
