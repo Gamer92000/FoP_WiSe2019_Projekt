@@ -5,6 +5,7 @@ import fop.base.Node;
 import fop.model.graph.FeatureGraph;
 import fop.model.graph.FeatureNode;
 import fop.model.player.Player;
+import fop.model.player.Players;
 import fop.model.tile.FeatureType;
 import static fop.model.tile.FeatureType.*;
 import fop.model.tile.Position;
@@ -23,7 +24,6 @@ public class Gameboard extends Observable<Gameboard> {
 	private FeatureGraph graph;
 	private Tile newestTile;
 	private HashMap<Player, Integer> besetzteBurgen = new HashMap<>();
-	
 
 	public Gameboard() {
 		board = new Tile[144][144];
@@ -34,6 +34,7 @@ public class Gameboard extends Observable<Gameboard> {
 	// kann nicht im konstrukor erfolgen, weil erst observer gesetzt werden muss
 	public void initGameboard(Tile t) {
 		newTile(t, 72, 72);
+		for (Player p : Players.getPLayers()) besetzteBurgen.put(p, 0);
 	}
 
 	public void newTile(Tile t, int x, int y) {

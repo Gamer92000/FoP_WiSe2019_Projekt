@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 import fop.model.gameplay.GamePlay;
 import fop.model.gameplay.Gameboard;
