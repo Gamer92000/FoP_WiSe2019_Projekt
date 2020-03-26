@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import fop.model.gameplay.GamePlay;
 import fop.model.gameplay.Gameboard;
@@ -32,6 +33,7 @@ public class GameController implements GameControllerMethods {
 	private TileStack stack;
 	private List<Player> players;
 	private int currentRound;
+	private boolean mission1Enabled, mission2Enabled;
 
 	// view
 	private JFrame window;
@@ -101,10 +103,10 @@ public class GameController implements GameControllerMethods {
 			break;
 
 		case GAME_OVER:
-			if (board.isThreeAhead(board.getInfoMission1())) {
+			if (getMission1() && board.isThreeAhead(board.getInfoMission1())) {
 				gameplay.missionOneCompleted();
 			}
-			else if(board.getWinnerMission2() != null) {
+			else if(getMission2() && board.getWinnerMission2() != null) {
 				gameplay.missionTwoCompleted();
 				
 			} else 
@@ -195,4 +197,18 @@ public class GameController implements GameControllerMethods {
 		this.stackPanel = tileStackPanel;
 	}
 
+	public void setMission1 (boolean b) {
+		mission1Enabled = b;
+	}
+	public void setMission2 (boolean b) {
+		mission2Enabled = b;
+	}
+	
+	public boolean getMission1 () {
+		return mission1Enabled;
+	}
+	
+	public boolean getMission2 () {
+		return mission2Enabled;
+	}
 }

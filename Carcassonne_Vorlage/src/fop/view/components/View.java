@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
+import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
@@ -95,6 +96,25 @@ public abstract class View extends Container implements ActionListener, GameCons
 		this.add(button);
 		return button;
 	}
+	
+	/**
+	 * creates a button with the constants form GameConstants and the given text
+	 * 
+	 * @param text
+	 * @return
+	 */
+	protected JToggleButton createToggleButton(String text) {
+		JToggleButton button = new JToggleButton(text);
+		button.setSize(new Dimension(150,25));
+		button.addActionListener(this);
+		button.setForeground(BUTTON_FOREGROUND_Color);
+		button.setBackground(BUTTON_BACKGROUND_Color);
+		button.setFont(gameWindow.getResources().getCelticFont());
+		button.setSelected(true);
+		this.add(button);
+		return button;
+	}
+	
 	/**
 	 * calculates the text size and returns it 
 	 * @param text

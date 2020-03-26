@@ -9,6 +9,8 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
+import javax.swing.JToggleButton.ToggleButtonModel;
 
 import fop.controller.GameController;
 import fop.model.gameplay.State;
@@ -31,6 +33,7 @@ public class StartGame extends View implements GameConstants{
 
 	private JLabel lblTitle;
 	private JLabel lblPlayerCount;
+	private JToggleButton mission1, mission2;
 
 	private NumberChooser playerCount;
 	
@@ -46,6 +49,8 @@ public class StartGame extends View implements GameConstants{
 		Players.resetPlayers();
 		
 	}
+	
+	
 
 	@Override
 	public void onResize() {
@@ -82,6 +87,13 @@ public class StartGame extends View implements GameConstants{
 		offsetX = (this.getWidth() - 2 * BUTTON_SIZE.width - 25) / 2;
 		btnBack.setLocation(offsetX, offsetY);
 		btnStart.setLocation(offsetX + BUTTON_SIZE.width + 25, offsetY);
+		
+		// togglebutton
+		
+		mission1.setLocation(25, 175 - 10);
+		mission2.setLocation(25, 175 + 25);
+		
+		
 	}
 
 	@Override
@@ -117,6 +129,10 @@ public class StartGame extends View implements GameConstants{
 		// Buttons
 		btnBack = createButton("Back");
 		btnStart = createButton("Start");
+		mission1 = createToggleButton("Mission 1");
+		mission2 = createToggleButton("Mission 2");
+		
+		
 
 		getWindow().setSize(750, 450);
 		getWindow().setMinimumSize(new Dimension(750, 450));
@@ -163,6 +179,9 @@ public class StartGame extends View implements GameConstants{
 					
 				
 				}
+				
+				gc.setMission1(mission1.isSelected());
+				gc.setMission2(mission2.isSelected());
 				
 			
 				gameWindow.dispose();
