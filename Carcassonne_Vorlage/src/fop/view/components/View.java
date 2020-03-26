@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -107,18 +108,19 @@ public abstract class View extends Container implements ActionListener, GameCons
 	 */
 	protected JToggleButton createToggleButton(String text) {
 		JToggleButton button = new JToggleButton(text);
-		button.setSize(new Dimension(150,25));
+		button.setSize(new Dimension(150, 40));
 		button.addActionListener(this);
 		button.setForeground(BUTTON_FOREGROUND_Color);
-		button.setBackground(BUTTON_BACKGROUND_Color);
+		button.setBackground(new Color(192, 192, 192));
 		button.setFont(gameWindow.getResources().getCelticFont());
-		button.setSelected(true);
-		button.setUI(new MetalToggleButtonUI() {
+		button.setUI(new MetalToggleButtonUI() {	
 		    @Override
 		    protected Color getSelectColor() {
-		        return Color.RED;
+		        return new Color(102, 255, 102);
 		    }
 		});
+		button.setFocusPainted(false);
+		button.setSelected(true);
 		this.add(button);
 		return button;
 	}

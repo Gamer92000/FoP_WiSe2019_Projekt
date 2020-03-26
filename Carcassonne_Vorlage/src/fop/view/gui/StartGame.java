@@ -90,7 +90,7 @@ public class StartGame extends View implements GameConstants{
 		
 		// togglebutton
 		
-		mission1.setLocation(25, 175 - 10);
+		mission1.setLocation(25, 175 - 25);
 		mission2.setLocation(25, 175 + 25);
 		
 		
