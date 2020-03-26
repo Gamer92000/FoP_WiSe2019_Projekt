@@ -107,8 +107,9 @@ public class GameController implements GameControllerMethods {
 			if (getMission1() && winner != null) {
 				gameplay.missionOneCompleted(winner);
 			}
-			else if(getMission2() && board.getWinnerMission2() != null) {
-				gameplay.missionTwoCompleted();
+			
+			else if(getMission2() && (winner = board.getWinnerMission2()) != null) {
+				gameplay.missionTwoCompleted(winner);
 				
 			} else 
 			gameplay.game_Over_Mode();
