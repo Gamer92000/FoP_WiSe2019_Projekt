@@ -66,10 +66,12 @@ public class Gameboard extends Observable<Gameboard> {
 		Position a2 = BOTTOMRIGHT; Position b2 = TOPRIGHT;
 		if(board[x1][y1] != null) {
 			graph.addEdge(t.getNode(a), board[x1][y1].getNode(b));
+			if(t.getNode(a).getType() != CASTLE) {
 			if(t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
 				graph.addEdge(t.getNode(a1), board[x1][y1].getNode(b1));
 			if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
 				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
+			}
 		}
 
 		x1 = x-1; y1 = y;
@@ -78,10 +80,12 @@ public class Gameboard extends Observable<Gameboard> {
 		a2 = BOTTOMLEFT; b2 = BOTTOMRIGHT;
 		if(board[x1][y1] != null) {
 			graph.addEdge(t.getNode(a), board[x1][y1].getNode(b));
+			if(t.getNode(a).getType() != CASTLE) {
 			if(t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
 				graph.addEdge(t.getNode(a1), board[x1][y1].getNode(b1));
 			if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
 				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
+			}
 		}
 		x1 = x+1; y1 = y;
 		a  = RIGHT;       b  = LEFT;
@@ -89,10 +93,12 @@ public class Gameboard extends Observable<Gameboard> {
 		a2 = BOTTOMRIGHT; b2 = BOTTOMLEFT;
 		if(board[x1][y1] != null) {
 			graph.addEdge(t.getNode(a), board[x1][y1].getNode(b));
+			if(t.getNode(a).getType() != CASTLE) {
 			if(t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
 				graph.addEdge(t.getNode(a1), board[x1][y1].getNode(b1));
 			if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
 				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
+			}
 		}
 		x1 = x; y1 = y-1;
 		a  = TOP;      b  = BOTTOM;
@@ -100,10 +106,12 @@ public class Gameboard extends Observable<Gameboard> {
 		a2 = TOPRIGHT; b2 = BOTTOMRIGHT;
 		if(board[x1][y1] != null) {
 			graph.addEdge(t.getNode(a), board[x1][y1].getNode(b));
+			if(t.getNode(a).getType() != CASTLE) {
 			if(t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
 				graph.addEdge(t.getNode(a1), board[x1][y1].getNode(b1));
 			if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
 				graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
+			}
 		}
 	}
 
