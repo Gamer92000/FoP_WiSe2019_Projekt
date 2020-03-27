@@ -146,14 +146,20 @@ Somit zeigt sich, dass die gegebene Ungleichnug nicht die Pr\"aziseste, allerdin
 
 \section{Laufzeitkomplexit\"at von calculatePoints()}
 Sei der Graph $G = (V,E)$ gegeben.\\
-In der Methode \textit{calculatePoints(FeatureType type, State state)} werden alle Nodes und Edges im Graph der Reihe nach bearbeitet. Die Reihenfolge ist dabei abh\"angig von den zusammenh\"angenden Strukturen im Spiel, was sich jedoch nicht weiter bedeutend auf die Laufzeit auswirkt.\\
-Zu jeder Node werden alle Edges auf Zusammenh\"angigkeit untersucht. Vereinfacht kann man die Komplexit\"at also mit der der folgenden Funktion beschreiben:
+In der Methode \textit{calculatePoints(FeatureType type, State state)} werden alle Nodes und Edges im Graph der Reihe nach bearbeitet, um anschlie$\ss$end korrekt die Punkte zu errechnen. Die Reihenfolge ist dabei abh\"angig von den zusammenh\"angenden Strukturen im Spiel, was sich jedoch nicht weiter bedeutend auf die Laufzeit dieser Berechnung auswirkt.\\
+Zu jeder Node werden gleicherma$\ss$en alle Edges auf Zusammenh\"angigkeit untersucht. Vereinfacht kann man die Komplexit\"at mit der der folgenden Funktion beschreiben:
 \begin{lstlisting}
 for (node : graph)
   for (edge : graph)
     [...]
 \end{lstlisting}
-
-And that is complete bullshit. Thank you for coming to my TED Talk. \qed
+Das entspricht einer Komplexit\"at von $\mathcal{O}(|E|*|V|)$.\\
+Hinzu kommen die Berechnungen zur Bewertung. Die H\"aufigkeit dieser ist allein abh\"angig von der Anzahl an Strukturen.\\
+Sei $|S|$ also die Anzahl an Strukturen. Dann ist die Komplexit\"at beschreibbar durch
+\begin{align*}
+&\mathcal{O}(|E|*|V|+|S|)\\
+= \ &\mathcal{O}(|E|*|V|)
+\end{align*}
+\qed
 
 \end{document}

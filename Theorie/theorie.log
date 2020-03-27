@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.26)  27 MAR 2020 10:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.26)  27 MAR 2020 12:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -944,6 +944,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 141--144
  []
 
 [3 <./aufgabe2_2.png> <./aufgabe2_3.png> <./aufgabe2_4.png> <./aufgabe2_5.png>]
+
+LaTeX Warning: Command \ss invalid in math mode on input line 149.
+
+
+LaTeX Warning: Command \ss invalid in math mode on input line 150.
+
 LaTeX Font Info:    Trying to load font information for OT1+lmtt on input line 
 151.
 (c:/texlive/2019/texmf-dist/tex/latex/lm/ot1lmtt.fd
@@ -952,24 +958,24 @@ File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 LaTeX Font Info:    Font shape `OT1/lmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 152.
 
-Underfull \hbox (badness 10000) in paragraph at lines 157--158
+Underfull \hbox (badness 10000) in paragraph at lines 162--164
 
  []
 
 [4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 159.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 159.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 165.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 165.
  (./theorie.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 159.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 159.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 165.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 165.
 Package rerunfilecheck Info: File `theorie.out' has not changed.
 (rerunfilecheck)             Checksum: 2F6D82EF3DF58DD8D820F649BF5ABF5E;725.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 159.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 165.
  ) 
 Here is how much of TeX's memory you used:
  24509 strings out of 480994
  423801 string characters out of 5916032
- 840875 words of memory out of 5000000
+ 841875 words of memory out of 5000000
  39569 multiletter control sequences out of 15000+600000
  584662 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -987,7 +993,7 @@ mri10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texl
 ive/2019/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/texlive/2019/texmf-dis
 t/fonts/type1/public/lm/lmtt10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/publ
 ic/amsfonts/symbols/msam10.pfb>
-Output written on theorie.pdf (4 pages, 1191643 bytes).
+Output written on theorie.pdf (4 pages, 1193111 bytes).
 PDF statistics:
  125 PDF objects out of 1000 (max. 8388607)
  90 compressed objects within 1 object stream
