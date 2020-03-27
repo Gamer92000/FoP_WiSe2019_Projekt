@@ -258,6 +258,7 @@ public class Gameboard extends Observable<Gameboard> {
 		List<FeatureNode> fieldNodes = new ArrayList<FeatureNode>();
 		
 		
+		
 		// queue defines the connected graph. If this queue is empty, every node in this graph will be visited.
 		// if nodeList is non-empty, insert the next node of nodeList into this queue
 		ArrayDeque<Node<FeatureType>> queue = new ArrayDeque<>();
