@@ -14,6 +14,7 @@
 \usepackage{subcaption}
 
 
+
 \PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
 \usepackage[unicode=true]{hyperref}
 
@@ -164,14 +165,27 @@ Sei $|S|$ also die Anzahl an Konstrukten. Dann ist die Komplexit\"at beschreibba
 
 \section{Dokumentation}
 \subsection{calculatePoints}
+\label{sec:calculatePoints}
 Die Methode operiert als eine Queue, in die zunächst eine zufällige Node aus der Liste aller Nodes zum entsprechenden Typ geladen wird. Über diese können anschließend mit dem Graph alle verbundenen Nodes, sowie die relevanten Informationen, wie Tiles, Meaples, sowie für Burgen Pennants ermittelt werden. Die verbundenen Nodes werden in die Queue geladen, die ursprüngliche Node daraus entfernt und die weiteren Informationen vorerst in Listen gespeichert. Weiterhin wird zunächst davon ausgegangen, das aktuelle Konstrukt abgeschlossen ist. Sobald eine Node gefunden wird, die sich am Rand befindet, aber keine Tiles verbindet, wird der status auf unabgeschlossen gesetzt. Sind zu einem Konstrukt alle Nodes gefunden worden, d.h. die Queue ist leer, so werden abhängig vom Spielstatus und anhand der ermittelten Informationen die Punkte entsprechend der Spielregeln berechnet und gutgeschrieben.\\
 Bei Wiesen gibt es noch einen Sonderfall. Hier wird jede Node auf anliegende Burgen-Nodes überprüft. Gehört diese zu einer abgeschlossenen Burg, so werden 3 Punkte an den Besitzer der Wiese vergeben.
 
 \subsection{Highscore View}
 In der Highscore View wurde die Schriftart der Highscores auf Celtic geändert, damit das Spiel einen einheitliches Gesamtaussehen und einen durchgängiges Design hat. Außerdem wurden die ersten 3 Highscores in Gold, Silber, Bronze eingefärbt und anschließend mit einem Gradient versehen, um die Anzeige dynamischer zu gestalten. Ab der 3. Zeile wechseln sich Weiß und ein helles Grau ab um die Zeilen besser verfolgen zu können. Die Horizontalen Linien wurden dafür ausgeschaltet.
 
+\subsection{Offizielle Bewertung einer Wiese}
+siehe \hyperref[sec:calculatePoints]{calculatePoints}.
+
 \subsection{Mission}
+Beide Missionen lassen sich im Start-Menu ein und ausschalten, sind aber standartm\"a$\ss$ig eingeschaltet. Die Toggle Button zeigen die aktuelle Auswahl eindeutig an.
+Gewinnt ein Spieler durch eine Mission, so wird nur die Punktzahl des Spielers als Highscore gespeichert, der gewonnen hat, auch wenn er nicht die meisten Punkte hat.
+
+\subsubsection{Mission 1}
+Die erste Mission \"uberpr\"uft wie gefordert, ob ein Spieler mindestens 3 Burgen mehr als jeder andere Spieler besetzt hat. Tritt dieser Fall ein, so wird das Spiel beendet und die Anzahl der besetzten Burgen aller Spieler angezeigt.
+
+\subsubsection{Mission 2}
+Die zweite Mission \"uberpr\"uft, ob ein Spieler zwei Kl\"oster abgeschlossen hat. Dabei sind die abgeschlossenen Kl\"oster anderer Spieler nicht von Bedeutung. Werden so also z.B. durch ein Pl\"attchen zwei Kl\"oster im Besitz unterschiedlicher Spieler abgeschlossen, die dadurch beide gewinnen w\"urden, ist nicht definiert, wer gewinnt. Es gibt einen Kampf auf Leben und Tot und der letzte lebende M\"onch bekommt den Sieg - der Zufall entscheidet.
 
 \subsection{Computergegner}
+Die KI versucht ein m\"oglichst sch\"ones Spielfeld zu bauen. In jedem Zug wird ermittelt, an welche Positionen das aktuelle Pl\"attchen gelegt werden kann. Diese werden nach ihrem Abstand zur Spielfeldmitte bewertet. An die zentralste Position wird angelegt. Dies kann zu erstaunlich spannenden Spielen f\"uhren. Die Meeples werden zuf\"allig auf einem der freien Pl\"atze platziert, solange die KI \"uber mindestens ein Meeple verf\"ugt.
 
 \end{document}
