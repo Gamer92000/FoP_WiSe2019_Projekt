@@ -75,10 +75,10 @@ public class Gameboard extends Observable<Gameboard> {
 		Position a  = BOTTOM;      Position b  = TOP;
 		Position a1 = BOTTOMLEFT;  Position b1 = TOPLEFT;
 		Position a2 = BOTTOMRIGHT; Position b2 = TOPRIGHT;
-		if(board[x1][y1] != null) {
+		if (board[x1][y1] != null) {
 			graph.addEdge(t.getNode(a), board[x1][y1].getNode(b));
-			if(t.getNode(a).getType() != CASTLE) {
-				if(t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
+			if (t.getNode(a).getType() != CASTLE) {
+				if (t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
 					graph.addEdge(t.getNode(a1), board[x1][y1].getNode(b1));
 				if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
 					graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
@@ -89,10 +89,10 @@ public class Gameboard extends Observable<Gameboard> {
 		a  = LEFT;       b  = RIGHT;
 		a1 = TOPLEFT;    b1 = TOPRIGHT;
 		a2 = BOTTOMLEFT; b2 = BOTTOMRIGHT;
-		if(board[x1][y1] != null) {
+		if (board[x1][y1] != null) {
 			graph.addEdge(t.getNode(a), board[x1][y1].getNode(b));
-			if(t.getNode(a).getType() != CASTLE) {
-				if(t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
+			if (t.getNode(a).getType() != CASTLE) {
+				if (t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
 					graph.addEdge(t.getNode(a1), board[x1][y1].getNode(b1));
 				if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
 					graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
@@ -102,10 +102,10 @@ public class Gameboard extends Observable<Gameboard> {
 		a  = RIGHT;       b  = LEFT;
 		a1 = TOPRIGHT;    b1 = TOPLEFT;
 		a2 = BOTTOMRIGHT; b2 = BOTTOMLEFT;
-		if(board[x1][y1] != null) {
+		if (board[x1][y1] != null) {
 			graph.addEdge(t.getNode(a), board[x1][y1].getNode(b));
-			if(t.getNode(a).getType() != CASTLE) {
-				if(t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
+			if (t.getNode(a).getType() != CASTLE) {
+				if (t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
 					graph.addEdge(t.getNode(a1), board[x1][y1].getNode(b1));
 				if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
 					graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
@@ -115,10 +115,10 @@ public class Gameboard extends Observable<Gameboard> {
 		a  = TOP;      b  = BOTTOM;
 		a1 = TOPLEFT;  b1 = BOTTOMLEFT;
 		a2 = TOPRIGHT; b2 = BOTTOMRIGHT;
-		if(board[x1][y1] != null) {
+		if (board[x1][y1] != null) {
 			graph.addEdge(t.getNode(a), board[x1][y1].getNode(b));
-			if(t.getNode(a).getType() != CASTLE) {
-				if(t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
+			if (t.getNode(a).getType() != CASTLE) {
+				if (t.getNode(a1) != null && board[x1][y1].getNode(b1) != null)
 					graph.addEdge(t.getNode(a1), board[x1][y1].getNode(b1));
 				if (t.getNode(a2) != null && board[x1][y1].getNode(b2) != null)
 					graph.addEdge(t.getNode(a2), board[x1][y1].getNode(b2));
@@ -169,27 +169,27 @@ public class Gameboard extends Observable<Gameboard> {
 	 */
 	public boolean isTileAllowedAnywhere(Tile newTile) {
 		// Iterate over all tiles
-		for(Tile t : tiles) {
+		for (Tile t : tiles) {
 			// check top
-			if(!t.getNode(TOP).isConnectingTiles()) for(int j = 0; j < 4; j++) {
+			if (!t.getNode(TOP).isConnectingTiles()) for(int j = 0; j < 4; j++) {
 				if(isTileAllowed(newTile, t.x, t.y-1)) return true;
 				newTile.rotateRight();
 			}
 
 			// check left
-			if(!t.getNode(LEFT).isConnectingTiles()) for(int j = 0; j < 4; j++) {
+			if (!t.getNode(LEFT).isConnectingTiles()) for(int j = 0; j < 4; j++) {
 				if(isTileAllowed(newTile, t.x-1, t.y)) return true;
 				newTile.rotateRight();
 			}
 
 			// check right
-			if(!t.getNode(RIGHT).isConnectingTiles()) for(int j = 0; j < 4; j++) {
+			if (!t.getNode(RIGHT).isConnectingTiles()) for(int j = 0; j < 4; j++) {
 				if(isTileAllowed(newTile, t.x+1, t.y)) return true;
 				newTile.rotateRight();
 			}
 
 			// check bottom
-			if(!t.getNode(BOTTOM).isConnectingTiles()) for(int j = 0; j < 4; j++) {
+			if (!t.getNode(BOTTOM).isConnectingTiles()) for(int j = 0; j < 4; j++) {
 				if(isTileAllowed(newTile, t.x, t.y+1)) return true;
 				newTile.rotateRight();
 			}
@@ -230,7 +230,7 @@ public class Gameboard extends Observable<Gameboard> {
 					if (state == State.GAME_OVER) {
 						tile.getMeeple().addScore(adj);
 					} else if (adj == 9) {
-						if(!kloster.containsKey(tile.getMeeple()))
+						if (!kloster.containsKey(tile.getMeeple()))
 							kloster.put(tile.getMeeple(), 1);
 						else {
 							kloster.put(tile.getMeeple(), kloster.get(tile.getMeeple()) + 1);
@@ -485,9 +485,9 @@ public class Gameboard extends Observable<Gameboard> {
 				maxMeeple = 0;
 				
 				meeples.forEach((x,y) -> {
-					if(y == maxMeeple)
+					if (y == maxMeeple)
 						owners.add(x);
-					if(y > maxMeeple){
+					if (y > maxMeeple){
 						owners.clear();
 						owners.add(x);
 						maxMeeple = y;
@@ -536,7 +536,7 @@ public class Gameboard extends Observable<Gameboard> {
 		firstPlayer = null;
 
 		list.forEach((x, y) -> {
-			if(y > first) {
+			if (y > first) {
 				second = first;
 				first = y;
 				firstPlayer = x;
@@ -544,7 +544,7 @@ public class Gameboard extends Observable<Gameboard> {
 				second = y;
 			}
 		});
-		if(first - second >= 3)
+		if (first - second >= 3)
 			return firstPlayer;
 		return null;
 		}

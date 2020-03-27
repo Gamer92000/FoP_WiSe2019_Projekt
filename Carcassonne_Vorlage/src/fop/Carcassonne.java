@@ -10,7 +10,7 @@ import fop.view.gui.GameWindow;
 public class Carcassonne {
 
 	/**
-	 * do shit / main method / start it all
+	 * main method / start it all
 	 * @param args
 	 */
 	public static void main(String[] args) {

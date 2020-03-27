@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.26)  27 MAR 2020 18:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.26)  27 MAR 2020 18:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -960,19 +960,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 162--164
  []
 
 [4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 175.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 175.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 177.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 177.
  (./theorie.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 175.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 175.
-Package rerunfilecheck Info: File `theorie.out' has not changed.
-(rerunfilecheck)             Checksum: 9D29A8CAF3090B3DDA32DF62520ED46D;1215.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 175.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 177.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 177.
+
+
+Package rerunfilecheck Warning: File `theorie.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `theorie.out':
+(rerunfilecheck)             Before: 9D29A8CAF3090B3DDA32DF62520ED46D;1215
+(rerunfilecheck)             After:  3A4839902DE86635B722D1ED5034B9A6;1342.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 177.
  ) 
 Here is how much of TeX's memory you used:
- 24514 strings out of 480994
- 423802 string characters out of 5916032
- 840077 words of memory out of 5000000
+ 24515 strings out of 480994
+ 423816 string characters out of 5916032
+ 841077 words of memory out of 5000000
  39572 multiletter control sequences out of 15000+600000
  584662 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -990,10 +997,10 @@ mri10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texl
 ive/2019/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/texlive/2019/texmf-dis
 t/fonts/type1/public/lm/lmtt10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/publ
 ic/amsfonts/symbols/msam10.pfb>
-Output written on theorie.pdf (4 pages, 1196474 bytes).
+Output written on theorie.pdf (4 pages, 1196864 bytes).
 PDF statistics:
- 143 PDF objects out of 1000 (max. 8388607)
- 107 compressed objects within 2 object streams
- 21 named destinations out of 1000 (max. 500000)
+ 144 PDF objects out of 1000 (max. 8388607)
+ 108 compressed objects within 2 object streams
+ 22 named destinations out of 1000 (max. 500000)
  117 words of extra memory for PDF output out of 10000 (max. 10000000)
 
