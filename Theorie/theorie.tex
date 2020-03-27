@@ -26,7 +26,7 @@
 
 \usepackage{listings}
 \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt}
-\lstset{language=Perl}
+\lstset{language=Java}
 
 \setlength{\parindent}{0pt}
 
@@ -153,11 +153,11 @@ for (node : graph)
   for (edge : graph)
     [...]
 \end{lstlisting}
-Das entspricht einer Komplexit\"at von $\mathcal{O}(|E|*|V|)$.\\
+Das entspricht einer Komplexit\"at von $\mathcal{O}(|V|*|E|)$.\\
 Hinzu kommen die Berechnungen zur Bewertung. Die H\"aufigkeit dieser ist allein abh\"angig von der Anzahl an Strukturen.\\
 Sei $|S|$ also die Anzahl an Strukturen. Dann ist die Komplexit\"at beschreibbar durch
 \begin{align*}
-&\mathcal{O}(|E|*|V|+|S|)\\
+&\mathcal{O}(|V|*|E|+|S|)\\
 = \ &\mathcal{O}(|E|*|V|)
 \end{align*}
 \qed

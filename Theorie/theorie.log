@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.26)  27 MAR 2020 12:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.26)  27 MAR 2020 12:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -724,9 +724,6 @@ Package: listings 2019/09/10 1.8c (Carsten Heinz)
 (c:/texlive/2019/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2019/09/10 1.8c listings language file
 )
-(c:/texlive/2019/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2019/09/10 1.8c listings language file
-)
 (c:/texlive/2019/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-02-23 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count308
@@ -973,10 +970,10 @@ Package rerunfilecheck Info: File `theorie.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 165.
  ) 
 Here is how much of TeX's memory you used:
- 24509 strings out of 480994
- 423801 string characters out of 5916032
- 841875 words of memory out of 5000000
- 39569 multiletter control sequences out of 15000+600000
+ 24506 strings out of 480994
+ 423672 string characters out of 5916032
+ 838077 words of memory out of 5000000
+ 39568 multiletter control sequences out of 15000+600000
  584662 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,9n,60p,433b,1156s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -993,7 +990,7 @@ mri10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texl
 ive/2019/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/texlive/2019/texmf-dis
 t/fonts/type1/public/lm/lmtt10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/publ
 ic/amsfonts/symbols/msam10.pfb>
-Output written on theorie.pdf (4 pages, 1193111 bytes).
+Output written on theorie.pdf (4 pages, 1193103 bytes).
 PDF statistics:
  125 PDF objects out of 1000 (max. 8388607)
  90 compressed objects within 1 object stream
