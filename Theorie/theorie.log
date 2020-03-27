@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.26)  27 MAR 2020 12:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.26)  27 MAR 2020 18:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -886,12 +886,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 70--73
 
  []
 
-<Zyklischer_Graph.png, id=23, 602.25pt x 602.25pt>
+<Zyklischer_Graph.png, id=39, 602.25pt x 602.25pt>
 File: Zyklischer_Graph.png Graphic file (type png)
 <use Zyklischer_Graph.png>
 Package pdftex.def Info: Zyklischer_Graph.png  used on input line 79.
 (pdftex.def)             Requested size: 192.0548pt x 192.05309pt.
-<Zyklischer_Graph1.png, id=25, 483.8075pt x 483.8075pt>
+<Zyklischer_Graph1.png, id=41, 483.8075pt x 483.8075pt>
 File: Zyklischer_Graph1.png Graphic file (type png)
 <use Zyklischer_Graph1.png>
 Package pdftex.def Info: Zyklischer_Graph1.png  used on input line 84.
@@ -901,7 +901,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 89--90
 
  []
 
-<aufgabe2_0.png, id=26, 183.68625pt x 183.68625pt>
+<aufgabe2_0.png, id=42, 183.68625pt x 183.68625pt>
 File: aufgabe2_0.png Graphic file (type png)
 <use aufgabe2_0.png>
 Package pdftex.def Info: aufgabe2_0.png  used on input line 97.
@@ -910,27 +910,27 @@ Package pdftex.def Info: aufgabe2_0.png  used on input line 97.
 
 {c:/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./Zyklischer_Gr
 aph.png> <./Zyklischer_Graph1.png>]
-<aufgabe2_1.png, id=44, 369.38pt x 184.69pt>
+<aufgabe2_1.png, id=60, 369.38pt x 184.69pt>
 File: aufgabe2_1.png Graphic file (type png)
 <use aufgabe2_1.png>
 Package pdftex.def Info: aufgabe2_1.png  used on input line 107.
 (pdftex.def)             Requested size: 213.39568pt x 106.69754pt.
-<aufgabe2_2.png, id=45, 369.38pt x 365.365pt>
+<aufgabe2_2.png, id=61, 369.38pt x 365.365pt>
 File: aufgabe2_2.png Graphic file (type png)
 <use aufgabe2_2.png>
 Package pdftex.def Info: aufgabe2_2.png  used on input line 119.
 (pdftex.def)             Requested size: 192.0548pt x 189.96858pt.
-<aufgabe2_3.png, id=46, 545.03625pt x 184.69pt>
+<aufgabe2_3.png, id=62, 545.03625pt x 184.69pt>
 File: aufgabe2_3.png Graphic file (type png)
 <use aufgabe2_3.png>
 Package pdftex.def Info: aufgabe2_3.png  used on input line 123.
 (pdftex.def)             Requested size: 192.0548pt x 65.07927pt.
-<aufgabe2_4.png, id=47, 550.055pt x 365.365pt>
+<aufgabe2_4.png, id=63, 550.055pt x 365.365pt>
 File: aufgabe2_4.png Graphic file (type png)
 <use aufgabe2_4.png>
 Package pdftex.def Info: aufgabe2_4.png  used on input line 127.
 (pdftex.def)             Requested size: 192.0548pt x 127.56746pt.
-<aufgabe2_5.png, id=48, 550.055pt x 545.03625pt>
+<aufgabe2_5.png, id=64, 550.055pt x 545.03625pt>
 File: aufgabe2_5.png Graphic file (type png)
 <use aufgabe2_5.png>
 Package pdftex.def Info: aufgabe2_5.png  used on input line 131.
@@ -960,23 +960,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 162--164
  []
 
 [4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 165.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 165.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 175.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 175.
  (./theorie.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 165.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 165.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 175.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 175.
 Package rerunfilecheck Info: File `theorie.out' has not changed.
-(rerunfilecheck)             Checksum: 2F6D82EF3DF58DD8D820F649BF5ABF5E;725.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 165.
+(rerunfilecheck)             Checksum: 9D29A8CAF3090B3DDA32DF62520ED46D;1215.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 175.
  ) 
 Here is how much of TeX's memory you used:
- 24506 strings out of 480994
- 423672 string characters out of 5916032
- 838077 words of memory out of 5000000
- 39568 multiletter control sequences out of 15000+600000
+ 24514 strings out of 480994
+ 423802 string characters out of 5916032
+ 840077 words of memory out of 5000000
+ 39572 multiletter control sequences out of 15000+600000
  584662 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,9n,60p,433b,1156s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,9n,60p,930b,1156s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-rmtt.enc}{c:/texlive/2019/t
 exmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2019/texmf-dist/fonts/enc/dv
 ips/lm/lm-mathsy.enc}{c:/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathit.e
@@ -990,10 +990,10 @@ mri10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texl
 ive/2019/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/texlive/2019/texmf-dis
 t/fonts/type1/public/lm/lmtt10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/publ
 ic/amsfonts/symbols/msam10.pfb>
-Output written on theorie.pdf (4 pages, 1193103 bytes).
+Output written on theorie.pdf (4 pages, 1196474 bytes).
 PDF statistics:
- 125 PDF objects out of 1000 (max. 8388607)
- 90 compressed objects within 1 object stream
- 17 named destinations out of 1000 (max. 500000)
- 85 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 143 PDF objects out of 1000 (max. 8388607)
+ 107 compressed objects within 2 object streams
+ 21 named destinations out of 1000 (max. 500000)
+ 117 words of extra memory for PDF output out of 10000 (max. 10000000)
 

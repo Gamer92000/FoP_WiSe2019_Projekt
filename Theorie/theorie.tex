@@ -90,7 +90,7 @@ Wie man sehen kann, sind durch diese 4 Karten bereits 3 Zyklen entstanden.\\ Der
 
 Wenn man diese Idee ein bisschen weiter f\"uhrt, kommt man relativ schnell zu dem Schluss, dass der Graph in den allermeisten F\"allen sp\"atestens bei Spielende zyklisch sein wird.
 
-\section{Zusammenhangskomponenten}
+\subsection{Zusammenhangskomponenten}
 F\"ur jedes Pl\"attchen $p$ gilt, dass es theoretisch maximal 9 Teilmengen von verschiedenen Zusammenhangskomponenten haben kann.
 \begin{figure}[H]
 	\centering
@@ -144,9 +144,9 @@ Somit zeigt sich, dass die gegebene Ungleichnug nicht die Pr\"aziseste, allerdin
 
 \newpage
 
-\section{Laufzeitkomplexit\"at von calculatePoints()}
+\subsection{Laufzeitkomplexit\"at von calculatePoints()}
 Sei der Graph $G = (V,E)$ gegeben.\\
-In der Methode \textit{calculatePoints(FeatureType type, State state)} werden alle Nodes und Edges im Graph der Reihe nach bearbeitet, um anschlie$\ss$end korrekt die Punkte zu errechnen. Die Reihenfolge ist dabei abh\"angig von den zusammenh\"angenden Strukturen im Spiel, was sich jedoch nicht weiter bedeutend auf die Laufzeit dieser Berechnung auswirkt.\\
+In der Methode \textit{calculatePoints(FeatureType type, State state)} werden alle Nodes und Edges im Graph der Reihe nach bearbeitet, um anschlie$\ss$end f\"ur jedes zusammenh\"angende Konstrukt im Spiel die Punkte zu errechnen. Die Reihenfolge ist dabei abh\"angig von den Konstrukten, was sich jedoch nicht weiter bedeutend auf die Laufzeit dieser Berechnung auswirkt.\\
 Zu jeder Node werden gleicherma$\ss$en alle Edges auf Zusammenh\"angigkeit untersucht. Vereinfacht kann man die Komplexit\"at mit der der folgenden Funktion beschreiben:
 \begin{lstlisting}
 for (node : graph)
@@ -154,12 +154,22 @@ for (node : graph)
     [...]
 \end{lstlisting}
 Das entspricht einer Komplexit\"at von $\mathcal{O}(|V|*|E|)$.\\
-Hinzu kommen die Berechnungen zur Bewertung. Die H\"aufigkeit dieser ist allein abh\"angig von der Anzahl an Strukturen.\\
-Sei $|S|$ also die Anzahl an Strukturen. Dann ist die Komplexit\"at beschreibbar durch
+Hinzu kommen die Berechnungen zur Bewertung. Die H\"aufigkeit dieser ist allein abh\"angig von der Anzahl an Konstrukten.\\
+Sei $|S|$ also die Anzahl an Konstrukten. Dann ist die Komplexit\"at beschreibbar durch
 \begin{align*}
 &\mathcal{O}(|V|*|E|+|S|)\\
 = \ &\mathcal{O}(|E|*|V|)
 \end{align*}
 \qed
+
+\section{Dokumentation}
+\subsection{calculatePoints}
+Die Methode operiert als eine Queue, in die zunächst eine zufällige Node aus der Liste aller Nodes zum entsprechenden Typ geladen wird. Über diese können anschließend mit dem Graph alle verbundenen Nodes, sowie die relevanten Informationen, wie Tiles, Meaples, sowie für Burgen Pennants ermittelt werden. Die verbundenen Nodes werden in die Queue geladen, die ursprüngliche Node daraus entfernt und die weiteren Informationen vorerst in Listen gespeichert. Weiterhin wird zunächst davon ausgegangen, das aktuelle Konstrukt abgeschlossen ist. Sobald eine Node gefunden wird, die sich am Rand befindet, aber keine Tiles verbindet, wird der status auf unabgeschlossen gesetzt. Sind zu einem Konstrukt alle Nodes gefunden worden, d.h. die Queue ist leer, so werden abhängig vom Spielstatus und anhand der ermittelten Informationen die Punkte entsprechend der Spielregeln berechnet und gutgeschrieben.\\
+Bei Wiesen gibt es noch einen Sonderfall. Hier wird jede Node auf anliegende Burgen-Nodes überprüft. Gehört diese zu einer abgeschlossenen Burg, so werden 3 Punkte an den Besitzer der Wiese vergeben.
+
+\subsection{Highscore View}
+In der Highscore View wurde die Schriftart der Highscores auf Celtic geändert, damit das Spiel einen einheitliches Gesamtaussehen und einen durchgängiges Design hat. Außerdem wurden die ersten 3 Highscores in Gold, Silber, Bronze eingefärbt und anschließend mit einem Gradient versehen, um die Anzeige dynamischer zu gestalten. Ab der 3. Zeile wechseln sich Weiß und ein helles Grau ab um die Zeilen besser verfolgen zu können. Die Horizontalen Linien wurden dafür ausgeschaltet.
+
+\subsection{Mission}
 
 \end{document}
