@@ -9,6 +9,10 @@ import fop.view.gui.GameWindow;
  */
 public class Carcassonne {
 
+	/**
+	 * do shit / main method / start it all
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Resources resources;
 		resources = Resources.getInstance();

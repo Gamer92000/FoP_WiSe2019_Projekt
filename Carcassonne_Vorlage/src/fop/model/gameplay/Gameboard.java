@@ -32,11 +32,22 @@ public class Gameboard extends Observable<Gameboard> {
 	}
 
 	// kann nicht im konstrukor erfolgen, weil erst observer gesetzt werden muss
+	/**
+	 * add the start tile
+	 * and set the amount of occupied castles for each player to 0
+	 * @param t
+	 */
 	public void initGameboard(Tile t) {
 		newTile(t, 72, 72);
 		for (Player p : Players.getPLayers()) besetzteBurgen.put(p, 0);
 	}
 
+	/**
+	 * add a tile to the gameboard
+	 * @param t
+	 * @param x
+	 * @param y
+	 */
 	public void newTile(Tile t, int x, int y) {
 		t.x = x;
 		t.y = y;
@@ -494,7 +505,7 @@ public class Gameboard extends Observable<Gameboard> {
 	
 	
 	/**
-	 * returns winner else null
+	 * @return winner else null
 	 */
 	Player w = null;
 	public Player getWinnerMission2() {
@@ -503,14 +514,21 @@ public class Gameboard extends Observable<Gameboard> {
 		return w;
 	}
 	
-	
-	
+	/**
+	 * @return the amount of occupied castles for each player
+	 */
 	public HashMap<Player, Integer> getInfoMission1() {
 		return besetzteBurgen;
 	}
 	
-	Player firstPlayer;
+	private Player firstPlayer;
 	private int first=0, second=0;
+	
+	/**
+	 * find whether one player holds at least 3 castles more in occupancy than every other player
+	 * @param list
+	 * @return the leading player or null if non is found
+	 */
 	public Player isThreeAhead(HashMap<Player, Integer> list) {
 		first = 0;
 		second = 0;
@@ -532,8 +550,6 @@ public class Gameboard extends Observable<Gameboard> {
 		}
 
 	/**
-	 * Returns all Tiles on the Gameboard.
-	 * 
 	 * @return all Tiles on the Gameboard.
 	 */
 	public List<Tile> getTiles() {
@@ -541,10 +557,8 @@ public class Gameboard extends Observable<Gameboard> {
 	}
 
 	/**
-	 * Returns the Tile containing the given FeatureNode.
-	 * 
-	 * @param node A FeatureNode.
-	 * @return the Tile containing the given FeatureNode.
+	 * @param node
+	 * @return the tile containing the given FeatureNode.
 	 */
 	private Tile getTileContainingNode(FeatureNode node) {
 		for (Tile t : tiles) {
@@ -631,13 +645,24 @@ public class Gameboard extends Observable<Gameboard> {
 		player.removeMeeple();
 	}
 
+	/**
+	 * @return the board
+	 */
 	public Tile[][] getBoard() {
 		return board;
 	}
 	
+	/**
+	 * @return the graph
+	 */
 	public FeatureGraph getGraph() {
 		return this.graph;
 	}
+	
+	/**
+	 * set the feature graph
+	 * @param graph
+	 */
 	public void setFeatureGraph(FeatureGraph graph) {
 		this.graph = graph; 
 	}

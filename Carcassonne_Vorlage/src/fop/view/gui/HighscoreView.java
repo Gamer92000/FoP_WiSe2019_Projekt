@@ -105,6 +105,9 @@ public class HighscoreView extends View {
 			GameMethods.deleteHighScoreEntries(MessagesConstants.deleteHighScore());
 	}
 
+	/**
+	 * @return the border
+	 */
 	public MatteBorder getBorder() {
 		return border;
 	}

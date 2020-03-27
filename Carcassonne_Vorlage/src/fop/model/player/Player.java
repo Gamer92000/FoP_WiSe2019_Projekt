@@ -63,6 +63,11 @@ public class Player implements PlayerMethods{
 		meeples++;
 	}
 
+	/**
+	 * AI place tile add center most position
+	 * @param gp
+	 * @param tile
+	 */
 	public void draw(GamePlay gp, Tile tile) {
 		if (tile == null) return;
 
@@ -83,6 +88,10 @@ public class Player implements PlayerMethods{
 		gp.newTile(tile, tilePositions.get(0).getX(), tilePositions.get(0).getY());
 	}
 
+	/**
+	 * AI place meeple at random position
+	 * @param gp
+	 */
 	public void placeMeeple(GamePlay gp) {
 		GameController gc = gp.getGameController();
 		boolean[] meeples = gc.getGameBoard().getMeepleSpots();
@@ -109,10 +118,17 @@ public class Player implements PlayerMethods{
 	private static class Rateable {
 		private double rating = 0;
 
+		/**
+		 * @return the rating
+		 */
 		public double getRating() {
 			return rating;
 		}
 
+		/**
+		 * set the rating
+		 * @param rating
+		 */
 		public void setRating(double rating) {
 			this.rating = rating;
 		}
@@ -126,14 +142,23 @@ public class Player implements PlayerMethods{
 			this.y = y;
 		}
 
+		/**
+		 * @return x
+		 */
 		public int getX() {
 			return x;
 		}
 
+		/**
+		 * @return y
+		 */
 		public int getY() {
 			return y;
 		}
-		
+
+		/**
+		 * rate a tale based on it's distance to the center
+		 */
 		public void rate() {
 			double distance = Math.sqrt(Math.pow((72 - this.x), 2) + Math.pow((72 - this.y), 2));
 			this.setRating(distance);
@@ -147,6 +172,9 @@ public class Player implements PlayerMethods{
 			this.position = position;
 		}
 
+		/**
+		 * @return position
+		 */
 		public Position getPosition() {
 			return position;
 		}

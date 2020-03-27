@@ -86,6 +86,10 @@ public class TileStack extends Observable<TileStack> {
 	public void discardTopTile() {
 		cardstack.remove(0);
 	}
+	
+	/**
+	 * @return generator
+	 */
 	public TileGenerator getTileGenerator() {
 		return this.generator;
 	}

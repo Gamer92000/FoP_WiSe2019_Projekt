@@ -60,8 +60,6 @@ public interface MessagesConstants {
 	 * creates winner message of mission1
 	 * @param p
 	 */
-	
-	
 	public static void showBurgenPoints(HashMap<Player, Integer> p) {
 		
 		HashMap.Entry<Player, Integer> winner = null;
@@ -87,6 +85,10 @@ public interface MessagesConstants {
 				JOptionPane.CLOSED_OPTION);
 	}
 	
+	/**
+	 * open a window showing a player one with mission 2
+	 * @param p
+	 */
 	public static void showWinnerMissionTwo(Player p) {
 		
 		String message = "Der Spieler " + p.getName() + " hat gewonnen, da er die göttliche Fügung besitzt!";

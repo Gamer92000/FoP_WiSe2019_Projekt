@@ -25,6 +25,9 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 		this.gc = gc;
 	}
 	
+	/**
+	 * @return the game controler
+	 */
 	public GameController getGameController() {
 		return this.gc;
 	}
@@ -176,6 +179,9 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 		}
 	}
 	
+	/**
+	 * handle game over
+	 */
 	public void game_Over_Mode() {
 		gc.getGameBoard().calculatePoints(gc.getState());
 		gc.getGameBoard().push(gc.getGameBoard());
@@ -187,6 +193,10 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 		GameMethods.GoToMainMenu();
 	}
 	
+	/**
+	 * handle game over with mission 1
+	 * @param winner
+	 */
 	public void missionOneCompleted(Player winner) {
 		gc.getGameBoard().calculatePoints(gc.getState());
 		gc.getGameBoard().push(gc.getGameBoard());
@@ -200,6 +210,10 @@ public class GamePlay extends Observable<List<Player>> implements GamePlayMethod
 		GameMethods.GoToMainMenu();
 	}
 	
+	/**
+	 * handle game over with mission 2
+	 * @param winner
+	 */
 	public void missionTwoCompleted(Player winner) {
 		gc.getGameBoard().calculatePoints(gc.getState());
 		gc.getGameBoard().push(gc.getGameBoard());

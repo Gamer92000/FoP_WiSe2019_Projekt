@@ -153,6 +153,10 @@ public class Resources implements GameConstants {
 		scoreEntries.sort(Comparator.reverseOrder());
 	}
 
+	/**
+	 * removes every highscore
+	 * @throws IOException
+	 */
 	public void clearEntries() throws IOException {
 		PrintWriter pw = new PrintWriter(HIGHSCORE_FILE);
 		pw.print("");
@@ -160,10 +164,19 @@ public class Resources implements GameConstants {
 		loadScoreEntries();
 	}
 
+	/**
+	 * @return scoreEntries
+	 */
 	public List<ScoreEntry> getScoreEntries() {
 		return scoreEntries;
 	}
 
+	/**
+	 * @param name
+	 * @return the font thats name's given a little more fancy
+	 * @throws IOException
+	 * @throws FontFormatException
+	 */
 	private Font loadFont(String name) throws IOException, FontFormatException {
 		InputStream is = Resources.class.getClassLoader().getResourceAsStream(name);
 		Font f = Font.createFont(Font.TRUETYPE_FONT, is);
@@ -172,6 +185,9 @@ public class Resources implements GameConstants {
 		return f.deriveFont(20f);
 	}
 
+	/**
+	 * @return celticFont
+	 */
 	public Font getCelticFont() {
 		return this.celticFont;
 	}

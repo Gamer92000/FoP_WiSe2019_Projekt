@@ -198,17 +198,34 @@ public class GameController implements GameControllerMethods {
 		this.stackPanel = tileStackPanel;
 	}
 
+	/**
+	 * set whether mission 1 is enabled
+	 * @param b
+	 */
 	public void setMission1 (boolean b) {
 		mission1Enabled = b;
 	}
+	
+	/**
+	 * set whether mission 2 is enabled
+	 * @param b
+	 */
 	public void setMission2 (boolean b) {
 		mission2Enabled = b;
 	}
 	
+	/**
+	 * get whether mission 1 is enabled
+	 * @return
+	 */
 	public boolean getMission1 () {
 		return mission1Enabled;
 	}
 	
+	/**
+	 * get whether mission 2 is enabled
+	 * @return
+	 */
 	public boolean getMission2 () {
 		return mission2Enabled;
 	}

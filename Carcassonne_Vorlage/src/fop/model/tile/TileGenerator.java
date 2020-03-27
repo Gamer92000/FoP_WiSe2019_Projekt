@@ -111,6 +111,11 @@ public class TileGenerator {
 
 	}
 	
+	/**
+	 * returns a tile of given type
+	 * @param type
+	 * @return tile or null if non found
+	 */
 	public Tile getInitTile(TileType type) {
 		
 		return tiles.stream().filter(x -> x.getType().equals(type)).findFirst().orElse(null); 
@@ -124,13 +129,17 @@ public class TileGenerator {
 	public List<Tile> getTiles() {
 		return tiles;
 	}
+	
+	/**
+	 * set tiles
+	 * @param tiles
+	 */
 	public void setTiles(List<Tile> tiles) {
 		this.tiles = tiles;
 	}
 
 	/**
 	 * returns the start tile
-	 * 
 	 * @return
 	 */
 	public Tile getStartTile() {

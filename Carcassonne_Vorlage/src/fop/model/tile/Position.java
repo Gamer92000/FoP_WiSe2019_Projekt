@@ -23,6 +23,10 @@ public enum Position {
 		return new Position[] { TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT };
 	}
 	
+	/**
+	 * returns an array of all positions
+	 * @return
+	 */
 	public static Position[] getAllPosition() {
 		return new Position[] {TOPLEFT, TOP, TOPRIGHT, LEFT, CENTER, RIGHT, BOTTOMLEFT, BOTTOM, BOTTOMRIGHT};
 	}

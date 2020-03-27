@@ -99,7 +99,7 @@ public abstract class View extends Container implements ActionListener, GameCons
 	}
 	
 	/**
-	 * creates a button with the constants form GameConstants and the given text
+	 * creates a toggle button with some constants form GameConstants and the given text
 	 * 
 	 * @param text
 	 * @return

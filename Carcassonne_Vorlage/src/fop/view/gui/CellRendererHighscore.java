@@ -29,6 +29,9 @@ public class CellRendererHighscore extends DefaultTableCellRenderer{
 		super.paintComponent(g);
 	}
 
+	/**
+	 * @return a fancy gradient paint for some fancy highscores
+	 */
 	private LinearGradientPaint getPaint() {
 		int row = getRow();
 		switch (row) {
@@ -39,6 +42,11 @@ public class CellRendererHighscore extends DefaultTableCellRenderer{
 		}
 	}
 
+	/**
+	 * @param color1
+	 * @param color2
+	 * @return a fancy gradient paint going from color1 to color2 and back
+	 */
 	private LinearGradientPaint createPaint(Color color1, Color color2) {
 		Point2D start = new Point2D.Float(-(getColumn() * getWidth()), 0);
 		Point2D end = new Point2D.Float((3 - getColumn()) * getWidth(), getHeight());
@@ -47,10 +55,16 @@ public class CellRendererHighscore extends DefaultTableCellRenderer{
 		return new LinearGradientPaint(start, end, dist, colors);
 	}
 
+	/**
+	 * @return the column of the current cell to paint
+	 */
 	private int getColumn() {
 		return getX() / (getWidth()-1);
 	}
 
+	/**
+	 * @return the row of the current cell to paint
+	 */
 	private int getRow() {
 		Insets border = highscoreView.getBorder().getBorderInsets();
 		return (getY() / (border.bottom + border.top + getHeight()));

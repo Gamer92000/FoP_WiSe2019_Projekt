@@ -221,6 +221,10 @@ public class Tile {
 		return null;
 	}
 	
+	/**
+	 * set the graph
+	 * @param edges
+	 */
 	public void setGraph(List<Edge<FeatureType>> edges) {
 		this.edges = edges; 
 	}

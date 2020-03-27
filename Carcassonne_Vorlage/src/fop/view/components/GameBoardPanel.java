@@ -207,11 +207,17 @@ public class GameBoardPanel extends JPanel implements Observer<Gameboard> {
 			return null;
 	}
 
+	/**
+	 * @return all TilePanels
+	 */
 	private TilePanel[] getTiles() {
 		return Arrays.stream(getComponents()).filter(c -> c instanceof TilePanel).map(c -> (TilePanel) c)
 				.toArray(TilePanel[]::new);
 	}
 
+	/**
+	 * @return tileOverlay
+	 */
 	public TileOverlayPanel getTileOverlay() {
 		return tileOverlay;
 	}
@@ -267,6 +273,10 @@ public class GameBoardPanel extends JPanel implements Observer<Gameboard> {
 		addSurroundingFlipsides(x, y);
 	}
 
+	/**
+	 * turn a tile until it is allowed at the position
+	 * @return whether the tile is allowed after rotating
+	 */
 	private boolean rotateUntilAllowed() {
 		boolean allowed = false;
 		gameplay.rotateTopTile();
@@ -281,6 +291,10 @@ public class GameBoardPanel extends JPanel implements Observer<Gameboard> {
 		return allowed;
 	}
 
+	/**
+	 * sets the scale
+	 * @param pixels
+	 */
 	private void setScale(int pixels) {
 		if (scale + pixels < 50 || scale + pixels > 150)
 			return;
@@ -298,6 +312,14 @@ public class GameBoardPanel extends JPanel implements Observer<Gameboard> {
 		}
 	}
 
+	/**
+	 * creates the temporary meeple overlay at the given position for the given player
+	 * @param meepleSpots
+	 * @param x
+	 * @param y
+	 * @param player
+	 * @return
+	 */
 	public MeepleOverlayPanel showTemporaryMeepleOverlay(boolean[] meepleSpots, int x, int y, Player player) {
 		gbc.gridx = x;
 		gbc.gridy = y;
@@ -306,6 +328,14 @@ public class GameBoardPanel extends JPanel implements Observer<Gameboard> {
 		return tempMeepleOverlay;
 	}
 
+	/**
+	 * creates the meeple overlay at the given position for the given player
+	 * @param meepleSpots
+	 * @param x
+	 * @param y
+	 * @param player
+	 * @return
+	 */
 	private MeepleOverlayPanel showMeepleOverlay(boolean[] meepleSpots, int x, int y, Player player) {
 		gbc.gridx = x;
 		gbc.gridy = y;
@@ -322,6 +352,9 @@ public class GameBoardPanel extends JPanel implements Observer<Gameboard> {
 		repaint(); // !
 	}
 
+	/**
+	 * removes the meeple overlay
+	 */
 	private void removeMeeples() {
 		for (Component c : getComponents()) {
 			if (c instanceof MeepleOverlayPanel)
@@ -329,6 +362,10 @@ public class GameBoardPanel extends JPanel implements Observer<Gameboard> {
 		}
 	}
 
+	/**
+	 * shows the meeple overlay for every tile
+	 * @param tiles
+	 */
 	private void showMeeples(List<Tile> tiles) {
 		removeMeeples();
 		for (Tile t : tiles) {
