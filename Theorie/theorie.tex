@@ -24,6 +24,12 @@
 
 \usepackage[a4paper, margin=3cm]{geometry}
 
+\usepackage{listings}
+\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt}
+\lstset{language=Perl}
+
+\setlength{\parindent}{0pt}
+
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 \newcommand*{\qed}{\hfill\ensuremath{\blacksquare}\\}%
 
@@ -62,7 +68,7 @@
 \section{Aufgabe 6.1.5 Theorie}
 \subsection{Azyklischer Graph}
 Da nur ein gerichteter Graph azyklisch sein kann, der hier gegebene Graph allerdings nicht gerichtet ist, kann er folglich auch nicht azyklisch sein.\\
- Im Folgenden gehen wir allerdings davon aus, dass auch ein nicht gerichteter Graph azyklisch sein k\"onne. Dabei nehmen wir an, dass ein Zyklus aus mindestens drei Nodes bestehen muss und der Zyklus \"uber $n - 1$ Kanten durchlaufen werden k\"onnen muss, ohne dabei zwei mal \"uber eine Kante zu gehen, wobei $n = Anzahl der Nodes$ ist.\\
+ Im Folgenden gehen wir allerdings davon aus, dass auch ein nicht gerichteter Graph azyklisch sein k\"onne. Dabei nehmen wir an, dass ein Zyklus aus mindestens drei Nodes bestehen muss und der Zyklus \"uber $n - 1$ Kanten durchlaufen werden k\"onnen muss, ohne dabei zwei mal \"uber eine Kante zu gehen, wobei $n = \textit{Anzahl der Nodes}$ ist.\\
 Im Folgenden zeigen wir, dass der Graph zyklisch sein kann.\\
 
 Betrachten wir einmal die einfachste Idee, um einen Zyklus zu erzeugen: Ein Kreisverkehr aus mehreren Stra{\ss}enkarten.
@@ -80,7 +86,7 @@ Betrachten wir einmal die einfachste Idee, um einen Zyklus zu erzeugen: Ein Krei
 	\end{subfigure}
 	\caption{Eine einfache M\"oglichkeit mit wenigen Pl\"attchen viele Zyklen zu erzeugen}
 \end{figure}
-Wie man direkt sehen kann, sind nur durch diese 4 Karten bereits 3 Zyklen entstanden.\qed
+Wie man sehen kann, sind durch diese 4 Karten bereits 3 Zyklen entstanden.\\ Der Graph ist somit nicht azyklisch.\qed
 
 Wenn man diese Idee ein bisschen weiter f\"uhrt, kommt man relativ schnell zu dem Schluss, dass der Graph in den allermeisten F\"allen sp\"atestens bei Spielende zyklisch sein wird.
 
@@ -99,7 +105,7 @@ Nur die Knoten eines neu angelegten Pl\"attchens k\"onnen eine neue Zusammenhang
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{aufgabe2_1.png}
-	\caption{zeigt, dass nur maximal 6 neue Zusammenhangskomponenten geben kann}
+	\caption{zeigt, dass es nur maximal 6 neue Zusammenhangskomponenten geben kann}
 \end{figure}
 Somit gilt, wenn man ein neues Pl\"attchen an nur einem alten anlegt:
 \begin{align*}
@@ -133,7 +139,21 @@ n &\leq 9 + 6*(k-1)\\
 \Leftrightarrow n &\leq 9*(k-1+1)\\ 
 \Leftrightarrow n &\leq 9k\\
 \end{align*}
-Somit zeigt sich, dass die gegenene Ungleichnug nicht die Pr\"aziseste, allerdings korrekt ist.
+Somit zeigt sich, dass die gegebene Ungleichnug nicht die Pr\"aziseste, allerdings korrekt ist.
 \qed
+
+\newpage
+
+\section{Laufzeitkomplexit\"at von calculatePoints()}
+Sei der Graph $G = (V,E)$ gegeben.\\
+In der Methode \textit{calculatePoints(FeatureType type, State state)} werden alle Nodes und Edges im Graph der Reihe nach bearbeitet. Die Reihenfolge ist dabei abh\"angig von den zusammenh\"angenden Strukturen im Spiel, was sich jedoch nicht weiter bedeutend auf die Laufzeit auswirkt.\\
+Zu jeder Node werden alle Edges auf Zusammenh\"angigkeit untersucht. Vereinfacht kann man die Komplexit\"at also mit der der folgenden Funktion beschreiben:
+\begin{lstlisting}
+for (node : graph)
+  for (edge : graph)
+    [...]
+\end{lstlisting}
+
+And that is complete bullshit. Thank you for coming to my TED Talk. \qed
 
 \end{document}
